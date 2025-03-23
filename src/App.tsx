@@ -5,6 +5,7 @@ import { Home } from './components/home.tsx';
 import { LoginPanel } from './components/login-panel.tsx';
 import { AdminPanel } from './components/admin-panel.tsx';
 import { AdminDockOffers } from './components/admin-dock-offers.tsx';
+import DockDetails from './components/admin-dock-details.tsx';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/login/:userType" element={<LoginPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/docks" element={<AdminDockOffers />} />
+        <Route path="/admin/dock/:dockId" element={<DockDetails />} />
       </Routes>
     </Router>
   );
