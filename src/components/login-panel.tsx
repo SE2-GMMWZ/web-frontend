@@ -9,7 +9,8 @@ export const LoginPanel: React.FC = () => {
 
     const handleLogin = () => {
         if (username && password) {
-        navigate('/home');
+            if(userType==='Admin') navigate('/admin');
+            else navigate('/home');
         }
     };
 
