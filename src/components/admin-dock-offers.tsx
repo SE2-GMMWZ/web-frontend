@@ -11,9 +11,9 @@ export const AdminDockOffers: React.FC = () => {
     const [showModal, setShowModal] = useState(false);
 
     const allDocks = [
-        { id: '1', title: 'Big Dock', description: 'Location: Dock A | Owner: John Doe', 
+        { id: '1', title: 'Big Dock', location: 'Dock A', owner: 'Jessica Jones', 
             imageUrl: 'https://helloartsy.com/wp-content/uploads/kids/beach/how-to-draw-a-dock/how-to-draw-a-dock-step-9.jpg'},
-        { id: '2', title: 'Docky dock', description: 'Location: Dock B | Owner: Jane Smith',
+        { id: '2', title: 'Docky dock', location: 'Dock B', owner: 'Luke Cage',
             imageUrl: 'https://thumbs.dreamstime.com/b/sunset-river-boat-dock-flying-birds-against-clouds-setting-sun-hand-painted-watercolor-illustration-paper-texture-141681745.jpg'},
     ];
 
