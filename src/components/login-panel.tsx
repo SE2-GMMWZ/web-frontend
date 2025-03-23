@@ -15,7 +15,7 @@ export const LoginPanel: React.FC = () => {
 
     return (
         <div className="h-screen flex items-center justify-center flex-col bg-gray-100">
-            <p className=" pb-10 text-7xl"> {userType=='Admin' ? 'Admin Log in panel' : 'Editor Log in panel'} </p>
+            <p className=" pb-10 text-7xl"> {userType==='Admin' ? 'Admin Log in panel' : 'Editor Log in panel'} </p>
 
             <div className="bg-white p-8 rounded shadow-md w-80">
                 <h2 className="text-2xl font-bold mb-4">Login</h2>
