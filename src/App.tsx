@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { Login } from './components/login.tsx';
 import { Home } from './components/home.tsx';
 import { LoginPanel } from './components/login-panel.tsx';
+import { AdminPanel } from './components/admin-panel.tsx';
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/login" element={<Login/>} />
         <Route path="/home" element={<Home />} />
         <Route path="/login/:userType" element={<LoginPanel />} />
+        <Route path="/admin" element={<AdminPanel />} />
       </Routes>
     </Router>
   );
