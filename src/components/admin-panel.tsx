@@ -1,19 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { HomeIcon } from 'lucide-react';
 import { AdminCard } from './admin-panel-card.tsx';
+import { AdminNavbar } from "./admin-panel-navbar.tsx";
 
 export const AdminPanel: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    navigate('/login/admin');
-  };
-
-  const handleHome = () => {
-    navigate('/');
-  };
-
   const cards = [
     { title: 'Dock offers' },
     { title: 'Users' },
@@ -22,24 +11,14 @@ export const AdminPanel: React.FC = () => {
   ];
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-8">
-        <button onClick={handleHome}>
-          <HomeIcon className="w-6 h-6" />
-        </button>
-        <h1 className="text-lg">This is the Admin Panel</h1>
-        <button
-          onClick={handleLogout}
-          className="bg-black text-white px-4 py-1 rounded"
-        >
-          Log out
-        </button>
-      </div>
-      <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
-        {cards.map((card) => (
-          <AdminCard cardName={card.title} />
-        ))}
-      </div>
+    <div className="p-6 flex flex-col items-center">
+        <AdminNavbar />
+        <p className="text-2xl mb-5"> This is Admin panel! </p>
+        <div className="grid grid-cols-2 gap-10 max-w-md mx-auto">
+            {cards.map((card) => (
+            <AdminCard cardName={card.title} />
+            ))}
+        </div>
     </div>
   );
 };
