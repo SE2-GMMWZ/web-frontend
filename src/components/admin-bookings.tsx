@@ -35,8 +35,8 @@ export const AdminBookings: React.FC = () => {
             />
             <BookingList
                 items={filtered}
-                onView={(dock) => redirect(`/admin/dock/${dock.id}`)}
-                onDelete={(dock) => setShowModal(true)}
+                onView={(booking) => redirect(`/admin/booking/${booking.id}`)}
+                onDelete={(booking) => setShowModal(true)}
             />
             <DeleteModal
                 isOpen={showModal}
