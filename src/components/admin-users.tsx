@@ -33,7 +33,7 @@ export const AdminUsers: React.FC = () => {
             />
             <UserList
                 items={filtered}
-                onView={(user) => redirect(`/admin/users/${user.id}`)}
+                onView={(user) => redirect(`/admin/user/${user.id}`)}
                 onDelete={(user) => setShowModal(true)}
             />
             <DeleteModal
