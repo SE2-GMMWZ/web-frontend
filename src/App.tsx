@@ -8,6 +8,7 @@ import { AdminDockOffers } from './components/admin-dock-offers.tsx';
 import DockDetails from './components/admin-dock-details.tsx';
 import { AdminBookings } from './components/admin-bookings.tsx';
 import BookingDetails from './components/admin-booking-details.tsx';
+import { AdminUsers } from './components/admin-users.tsx';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/admin/dock/:dockId" element={<DockDetails />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/booking/:bookingId" element={<BookingDetails />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
       </Routes>
     </Router>
   );

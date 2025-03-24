@@ -5,7 +5,7 @@ import { AdminNavbar } from "./admin-panel-navbar.tsx";
 export const AdminPanel: React.FC = () => {
   const cards = [
     { title: 'Dock offers', link: '/admin/docks' },
-    { title: 'Users', link: '/admin' },
+    { title: 'Users', link: '/admin/users' },
     { title: 'Bookings', link: '/admin/bookings' },
     { title: 'Guides', link: '/admin' },
   ];
