@@ -7,7 +7,7 @@ export const AdminPanel: React.FC = () => {
     { title: 'Dock offers', link: '/admin/docks' },
     { title: 'Users', link: '/admin/users' },
     { title: 'Bookings', link: '/admin/bookings' },
-    { title: 'Guides', link: '/admin' },
+    { title: 'Guides', link: '/admin/guides' },
   ];
 
   return (

@@ -10,6 +10,8 @@ import AdminBookings from './pages/admin-bookings.tsx';
 import BookingDetails from './pages/admin-booking-details.tsx';
 import AdminUsers from './pages/admin-users.tsx';
 import UserDetails from './pages/admin-user-details.tsx';
+import AdminGuides from './pages/admin-guides.tsx';
+import GuideDetails from './pages/admin-guide-details.tsx';
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
         <Route path="/admin/booking/:bookingId" element={<BookingDetails />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/user/:userId" element={<UserDetails />} />
+        <Route path="/admin/guides" element={<AdminGuides />} />
+        <Route path="admin/guide/:guideId" element={<GuideDetails />} />
       </Routes>
     </Router>
   );
