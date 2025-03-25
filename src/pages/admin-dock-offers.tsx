@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { AdminNavbar } from "./admin-panel-navbar.tsx";
-import { SearchBar } from "./admin-search-bar.tsx";
-import { CardList } from "./admin-card-list.tsx";
 import { useNavigate } from 'react-router-dom';
-import { DeleteModal } from "./admin-delete-modal.tsx";
+import AdminNavbar from '../components/admin/AdminNavbar.tsx';
+import DockList from '../components/admin/docks/DockList.tsx';
+import AdminSearchBar from '../components/admin/AdminSearchBar.tsx';
+import DeleteModal from '../components/admin/DeleteModal.tsx';
+
 
 export const AdminDockOffers: React.FC = () => {
     const [search, setSearch] = useState('');
@@ -25,13 +26,13 @@ export const AdminDockOffers: React.FC = () => {
             <AdminNavbar />
             <p className="text-2xl mb-5 font-bold"> Docks page</p>
             <p className="text-xl mb-5"> Browse and edit Dock offers</p>
-            <SearchBar
+            <AdminSearchBar
             value={search}
             onChange={setSearch}
             onClear={() => setSearch('')}
             placeholder="Search docks..."
             />
-            <CardList
+            <DockList
                 items={filtered}
                 onView={(dock) => redirect(`/admin/dock/${dock.id}`)}
                 onDelete={(dock) => setShowModal(true)}
@@ -48,3 +49,5 @@ export const AdminDockOffers: React.FC = () => {
         </div>
     );
 };
+
+export default AdminDockOffers;

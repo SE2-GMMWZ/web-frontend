@@ -3,20 +3,18 @@ import React from 'react';
 type Item = {
     id: string;
     title: string;
-    user: string;
-    dateStart: string;
-    dateEnd: string;
+    owner: string;
     location: string;
     imageUrl: string;
 };
 
-type BookingCardProps = {
+type DockCardProps = {
     item: Item;
     onView: (item: Item) => void;
     onDelete: (item: Item) => void;
   };
 
-export const BookingCard: React.FC<BookingCardProps> = ({ item, onView, onDelete }) => {
+export const DockCard: React.FC<DockCardProps> = ({ item, onView, onDelete }) => {
     return (
         <div key={item.id} className="border p-4 rounded shadow-sm flex gap-4 items-center">
             <img
@@ -27,8 +25,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ item, onView, onDelete
             <div className="flex-1">
               <p className="font-semibold">{item.title}</p>
               <p className="text-sm text-gray-600">Location: {item.location}</p>
-              <p className="text-sm text-gray-600">User: {item.user}</p>
-              <p className="text-sm text-gray-600">Date: {item.dateStart} - {item.dateEnd}</p>
+              <p className="text-sm text-gray-600">Owner: {item.owner}</p>
             </div>
             <div className="flex gap-2">
               <button onClick={() => onView(item)} className="bg-black text-white px-3 py-1 rounded">
@@ -41,3 +38,5 @@ export const BookingCard: React.FC<BookingCardProps> = ({ item, onView, onDelete
           </div>
     );
 }
+
+export default DockCard;

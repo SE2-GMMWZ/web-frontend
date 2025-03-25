@@ -2,31 +2,33 @@ import React from 'react';
 
 type Item = {
     id: string;
-    username: string;
-    name: string;
-    surname: string;
+    title: string;
+    user: string;
+    dateStart: string;
+    dateEnd: string;
+    location: string;
     imageUrl: string;
 };
 
-type UserCardProps = {
+type BookingCardProps = {
     item: Item;
     onView: (item: Item) => void;
     onDelete: (item: Item) => void;
   };
 
-export const UserCard: React.FC<UserCardProps> = ({ item, onView, onDelete }) => {
+export const BookingCard: React.FC<BookingCardProps> = ({ item, onView, onDelete }) => {
     return (
         <div key={item.id} className="border p-4 rounded shadow-sm flex gap-4 items-center">
             <img
             src={item.imageUrl}
-            alt={item.name}
+            alt={item.title}
             className="w-16 h-16 object-cover rounded"
             />
             <div className="flex-1">
-              <p className="font-semibold">{item.username}</p>
-              <p className="text-sm text-gray-600">Name: {item.name}</p>
-              <p className="text-sm text-gray-600">Surname: {item.surname}</p>
-              <p className="text-sm text-gray-600">userId: {item.id}</p>
+              <p className="font-semibold">{item.title}</p>
+              <p className="text-sm text-gray-600">Location: {item.location}</p>
+              <p className="text-sm text-gray-600">User: {item.user}</p>
+              <p className="text-sm text-gray-600">Date: {item.dateStart} - {item.dateEnd}</p>
             </div>
             <div className="flex gap-2">
               <button onClick={() => onView(item)} className="bg-black text-white px-3 py-1 rounded">
@@ -39,3 +41,5 @@ export const UserCard: React.FC<UserCardProps> = ({ item, onView, onDelete }) =>
           </div>
     );
 }
+
+export default BookingCard;

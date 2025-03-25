@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookingCard } from './admin-booking-card.tsx';
+import BookingCard from './BookingCard.tsx';
 
 type Item = {
     id: string;
@@ -28,3 +28,5 @@ export const BookingList: React.FC<BookingListProps> = ({ items, onView, onDelet
     </div>
   );
 };
+
+export default BookingList;

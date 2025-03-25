@@ -1,6 +1,6 @@
 import React from 'react';
-import { AdminCard } from './admin-panel-card.tsx';
-import { AdminNavbar } from "./admin-panel-navbar.tsx";
+import AdminPanelCard from '../components/admin/panel/PanelCard.tsx';
+import AdminNavbar from '../components/admin/AdminNavbar.tsx';
 
 export const AdminPanel: React.FC = () => {
   const cards = [
@@ -16,9 +16,11 @@ export const AdminPanel: React.FC = () => {
         <p className="text-2xl mb-5"> This is Admin panel! </p>
         <div className="grid grid-cols-2 gap-10 max-w-md mx-auto">
             {cards.map((card) => (
-            <AdminCard cardName={card.title} link={card.link} />
+            <AdminPanelCard cardName={card.title} link={card.link} />
             ))}
         </div>
     </div>
   );
 };
+
+export default AdminPanel;

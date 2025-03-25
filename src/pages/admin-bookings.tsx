@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AdminNavbar } from "./admin-panel-navbar.tsx";
-import { SearchBar } from "./admin-search-bar.tsx";
-import { BookingList } from "./admin-booking-list.tsx";
 import { useNavigate } from 'react-router-dom';
-import { DeleteModal } from "./admin-delete-modal.tsx";
+import AdminNavbar from '../components/admin/AdminNavbar.tsx';
+import AdminSearchBar from '../components/admin/AdminSearchBar.tsx';
+import BookingList from '../components/admin/bookings/BookingList.tsx';
+import DeleteModal from '../components/admin/DeleteModal.tsx';
 
 export const AdminBookings: React.FC = () => {
     const [search, setSearch] = useState('');
@@ -27,7 +27,7 @@ export const AdminBookings: React.FC = () => {
             <AdminNavbar />
             <p className="text-2xl mb-5 font-bold"> Review Bookings</p>
             <p className="text-xl mb-5"> Search for a booking</p>
-            <SearchBar
+            <AdminSearchBar
             value={search}
             onChange={setSearch}
             onClear={() => setSearch('')}
@@ -49,3 +49,5 @@ export const AdminBookings: React.FC = () => {
         </div>
     );
 };
+
+export default AdminBookings;

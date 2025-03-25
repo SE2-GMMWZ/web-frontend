@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { Login } from './components/login.tsx';
-import { Home } from './components/home.tsx';
-import { LoginPanel } from './components/login-panel.tsx';
-import { AdminPanel } from './components/admin-panel.tsx';
-import { AdminDockOffers } from './components/admin-dock-offers.tsx';
-import DockDetails from './components/admin-dock-details.tsx';
-import { AdminBookings } from './components/admin-bookings.tsx';
-import BookingDetails from './components/admin-booking-details.tsx';
-import { AdminUsers } from './components/admin-users.tsx';
-import UserDetails from './components/admin-user-details.tsx';
+import Login from './pages/login.tsx';
+import Home from './pages/home.tsx';
+import LoginPanel from './pages/login-panel.tsx';
+import AdminPanel from './pages/admin-panel.tsx';
+import AdminDockOffers from './pages/admin-dock-offers.tsx';
+import DockDetails from './pages/admin-dock-details.tsx';
+import AdminBookings from './pages/admin-bookings.tsx';
+import BookingDetails from './pages/admin-booking-details.tsx';
+import AdminUsers from './pages/admin-users.tsx';
+import UserDetails from './pages/admin-user-details.tsx';
 
 const App = () => {
   return (

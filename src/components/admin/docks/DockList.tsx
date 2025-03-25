@@ -1,5 +1,5 @@
 import React from 'react';
-import { DockCard } from './admin-dock-card.tsx';
+import DockCard from './DockCard.tsx';
 
 type Item = {
     id: string;
@@ -9,14 +9,14 @@ type Item = {
     imageUrl: string;
 };
 
-type CardListProps = {
+type DockListProps = {
   items: Item[];
   onView: (item: Item) => void;
   onDelete: (item: Item) => void;
   onAddNew: () => void;
 };
 
-export const CardList: React.FC<CardListProps> = ({ items, onView, onDelete, onAddNew }) => {
+export const DockList: React.FC<DockListProps> = ({ items, onView, onDelete, onAddNew }) => {
   return (
     <div className="flex gap-4">
       <div className="flex-1 space-y-4">
@@ -32,3 +32,5 @@ export const CardList: React.FC<CardListProps> = ({ items, onView, onDelete, onA
     </div>
   );
 };
+
+export default DockList;

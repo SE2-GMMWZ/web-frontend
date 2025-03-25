@@ -1,13 +1,13 @@
 import React from 'react';
 
-type SearchBarProps = {
+type AdminSearchBarProps = {
   value: string;
   onChange: (value: string) => void;
   onClear: () => void;
   placeholder?: string;
 };
 
-export const SearchBar: React.FC<SearchBarProps> = ({
+export const AdminSearchBar: React.FC<AdminSearchBarProps> = ({
   value,
   onChange,
   onClear,
@@ -30,3 +30,5 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     </div>
   );
 };
+
+export default AdminSearchBar;

@@ -29,3 +29,5 @@ export const AdminNavbar: React.FC = () =>
         
     );
 }
+
+export default AdminNavbar;

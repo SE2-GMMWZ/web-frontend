@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-type AdminCardProps = {
+type AdminPanelCardProps = {
   cardName: string;
   link: string;
 };
 
-export const AdminCard: React.FC<AdminCardProps> = ({ cardName, link }) => 
+export const AdminPanelCard: React.FC<AdminPanelCardProps> = ({ cardName, link }) => 
 {
     const navigate = useNavigate();
     return (
@@ -20,3 +20,5 @@ export const AdminCard: React.FC<AdminCardProps> = ({ cardName, link }) =>
           </div>
     );
 }
+
+export default AdminPanelCard;

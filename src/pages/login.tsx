@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginButton from './homepage-login-button.tsx';
+import LoginButton from '../components/LoginButton.tsx';
 
 export const Login: React.FC = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserCard } from './admin-user-card.tsx';
+import UserCard from './UserCard.tsx';
 
 type Item = {
     id: string;
@@ -26,3 +26,5 @@ export const UserList: React.FC<UserListProps> = ({ items, onView, onDelete }) =
     </div>
   );
 };
+
+export default UserList;

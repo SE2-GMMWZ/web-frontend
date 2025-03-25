@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AdminNavbar } from "./admin-panel-navbar.tsx";
-import { SearchBar } from "./admin-search-bar.tsx";
-import { UserList } from "./admin-users-list.tsx";
 import { useNavigate } from 'react-router-dom';
-import { DeleteModal } from "./admin-delete-modal.tsx";
+import AdminNavbar from '../components/admin/AdminNavbar.tsx';
+import AdminSearchBar from '../components/admin/AdminSearchBar.tsx';
+import UserList from '../components/admin/users/UserList.tsx';
+import DeleteModal from '../components/admin/DeleteModal.tsx';
 
 export const AdminUsers: React.FC = () => {
     const [search, setSearch] = useState('');
@@ -25,7 +25,7 @@ export const AdminUsers: React.FC = () => {
             <AdminNavbar />
             <p className="text-2xl mb-5 font-bold"> Review Users</p>
             <p className="text-xl mb-5"> Search for a user</p>
-            <SearchBar
+            <AdminSearchBar
             value={search}
             onChange={setSearch}
             onClear={() => setSearch('')}
@@ -47,3 +47,5 @@ export const AdminUsers: React.FC = () => {
         </div>
     );
 };
+
+export default AdminUsers;
