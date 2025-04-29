@@ -48,4 +48,3 @@ export const LoginPanel: React.FC = () => {
 };
 
 export default LoginPanel;
-
