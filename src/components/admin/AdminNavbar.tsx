@@ -1,14 +1,12 @@
 import React from "react";
 import { HomeIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../providers/AuthProvider.tsx';
 
 export const AdminNavbar: React.FC = () => 
 {
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-      navigate('/login/admin');
-    };
+    const { logout } = useAuth();
   
     const handleHome = () => {
       navigate('/');
@@ -20,7 +18,7 @@ export const AdminNavbar: React.FC = () =>
                 <HomeIcon className="w-6 h-6" />
             </button>
             <button
-                onClick={handleLogout}
+                onClick={logout}
                 className="bg-black text-white px-4 py-1 rounded"
             >
                 Log out
