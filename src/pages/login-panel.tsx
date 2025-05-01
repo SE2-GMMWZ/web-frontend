@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAuth } from '../providers/AuthProvider.tsx';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../providers/AuthProvider.tsx";
 
 export const LoginPanel: React.FC = () => {
   const { userType } = useParams();
   const { login, isLoading, error } = useAuth();
 
-  const [email, setEmail]       = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div className="h-screen flex items-center justify-center flex-col bg-gray-100 p-4">
       <p className="pb-10 text-4xl md:text-7xl text-center font-semibold">
-        {userType === 'Admin' ? 'Admin Log In Panel' : 'Editor Log In Panel'}
+        {userType === "Admin" ? "Admin Log In Panel" : "Editor Log In Panel"}
       </p>
 
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
@@ -40,7 +40,7 @@ export const LoginPanel: React.FC = () => {
           disabled={isLoading}
           className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 disabled:opacity-50"
         >
-          {isLoading ? 'Logging in…' : 'Log In'}
+          {isLoading ? "Logging in…" : "Log In"}
         </button>
       </div>
     </div>

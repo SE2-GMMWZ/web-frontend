@@ -4,13 +4,13 @@ import React, {
   useState,
   useEffect,
   ReactNode,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+} from "react";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id: string;
   email: string;
-  role: 'admin' | 'editor';
+  role: "admin" | "editor";
 }
 
 interface AuthCtx {
@@ -21,12 +21,13 @@ interface AuthCtx {
   logout: () => void;
 }
 
-
 const API_URL = process.env.REACT_APP_API_URL;
 
 const AuthContext = createContext<AuthCtx | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<User | null>(null);
@@ -37,7 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const fetchUser = async () => {
       try {
         const res = await fetch(`${API_URL}/user-info`, {
-          credentials: 'include',
+          credentials: "include",
         });
         if (res.ok) {
           const data = await res.json();
@@ -54,47 +55,46 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     fetchUser();
   }, []);
 
-  
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     setError(null);
 
     try {
       const res = await fetch(`${API_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || 'Login failed');
+        throw new Error(err.message || "Login failed");
       }
       const { user: u } = await res.json();
       setUser(u);
       // redirect based on role
       console.log(u.role);
-      if (u.role === 'admin') navigate('/admin', { replace: true });
-      else if (u.role === 'editor') navigate('/editor', { replace: true });
-      else navigate('/home', { replace: true });
+      if (u.role === "admin") navigate("/admin", { replace: true });
+      else if (u.role === "editor") navigate("/editor", { replace: true });
+      else navigate("/home", { replace: true });
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unknown error');
+      setError(e instanceof Error ? e.message : "Unknown error");
     } finally {
       setIsLoading(false);
     }
   };
 
-   const logout = async () => {
+  const logout = async () => {
     try {
       await fetch(`${API_URL}/logout`, {
-        method: 'POST',
-        credentials: 'include',
+        method: "POST",
+        credentials: "include",
       });
     } catch {
       // ignore
     }
     setUser(null);
-    navigate('/login', { replace: true });
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -106,7 +106,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
 export const useAuth = (): AuthCtx => {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be within AuthProvider");
   return ctx;
 };
-

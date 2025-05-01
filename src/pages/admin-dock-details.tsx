@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, ImageIcon } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Plus, ImageIcon } from "lucide-react";
 
 type DockData = {
   id: string;
@@ -13,12 +13,18 @@ type DockData = {
 };
 
 const dummyDock: DockData = {
-  id: '1',
-  name: 'Dock A',
-  location: 'Harbor Street 42',
-  contactInfo: 'owner@example.com',
-  properties: ['WiFi', 'Shower', 'Breakfast included', 'Electricity', 'Water supply'],
-  coverImage: '',
+  id: "1",
+  name: "Dock A",
+  location: "Harbor Street 42",
+  contactInfo: "owner@example.com",
+  properties: [
+    "WiFi",
+    "Shower",
+    "Breakfast included",
+    "Electricity",
+    "Water supply",
+  ],
+  coverImage: "",
   slideshowImages: [],
 };
 
@@ -30,7 +36,7 @@ const DockDetails: React.FC = () => {
   const [checked, setChecked] = useState<boolean[]>([]);
 
   useEffect(() => {
-    if (dockId === '1' || dockId === '2') {
+    if (dockId === "1" || dockId === "2") {
       setDock(dummyDock);
       setChecked(Array(dummyDock.properties.length * 2).fill(true));
     } else {
@@ -79,7 +85,9 @@ const DockDetails: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block mb-1 font-medium">Contact information:</label>
+            <label className="block mb-1 font-medium">
+              Contact information:
+            </label>
             <input
               type="text"
               value={dock.contactInfo}
@@ -98,7 +106,11 @@ const DockDetails: React.FC = () => {
                       <input
                         type="checkbox"
                         checked={checked[col * dock.properties.length + idx]}
-                        onChange={() => handleCheckboxChange(col * dock.properties.length + idx)}
+                        onChange={() =>
+                          handleCheckboxChange(
+                            col * dock.properties.length + idx,
+                          )
+                        }
                       />
                     </label>
                   ))}
@@ -131,7 +143,9 @@ const DockDetails: React.FC = () => {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <button className="bg-black text-white px-4 py-2 rounded">Delete Dock</button>
+        <button className="bg-black text-white px-4 py-2 rounded">
+          Delete Dock
+        </button>
         <button className="border px-4 py-2 rounded">Edit Dock</button>
         <button className="bg-gray-200 px-4 py-2 rounded">Save changes</button>
       </div>

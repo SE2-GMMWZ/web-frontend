@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import { AuthProvider } from './providers/AuthProvider.tsx';
-import RequireAuth  from './components/RequireAuth.tsx';
-import PublicRoute  from './components/PublicRoute.tsx';
+import { AuthProvider } from "./providers/AuthProvider.tsx";
+import RequireAuth from "./components/RequireAuth.tsx";
+import PublicRoute from "./components/PublicRoute.tsx";
 
-import Login            from './pages/login.tsx';
-import LoginPanel       from './pages/login-panel.tsx';
-import Home             from './pages/home.tsx';
-import AdminPanel       from './pages/admin-panel.tsx';
-import AdminDockOffers  from './pages/admin-dock-offers.tsx';
-import DockDetails      from './pages/admin-dock-details.tsx';
-import AdminBookings    from './pages/admin-bookings.tsx';
-import BookingDetails   from './pages/admin-booking-details.tsx';
-import AdminUsers       from './pages/admin-users.tsx';
-import UserDetails      from './pages/admin-user-details.tsx';
-import AdminGuides      from './pages/admin-guides.tsx';
-import GuideDetails     from './pages/admin-guide-details.tsx';
+import Login from "./pages/login.tsx";
+import LoginPanel from "./pages/login-panel.tsx";
+import Home from "./pages/home.tsx";
+import AdminPanel from "./pages/admin-panel.tsx";
+import AdminDockOffers from "./pages/admin-dock-offers.tsx";
+import DockDetails from "./pages/admin-dock-details.tsx";
+import AdminBookings from "./pages/admin-bookings.tsx";
+import BookingDetails from "./pages/admin-booking-details.tsx";
+import AdminUsers from "./pages/admin-users.tsx";
+import UserDetails from "./pages/admin-user-details.tsx";
+import AdminGuides from "./pages/admin-guides.tsx";
+import GuideDetails from "./pages/admin-guide-details.tsx";
 
 const App: React.FC = () => (
   <Router>
@@ -60,7 +60,7 @@ const App: React.FC = () => (
         <Route
           path="/admin"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <AdminPanel />
             </RequireAuth>
           }
@@ -68,7 +68,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/docks"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <AdminDockOffers />
             </RequireAuth>
           }
@@ -76,7 +76,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/dock/:dockId"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <DockDetails />
             </RequireAuth>
           }
@@ -84,7 +84,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/bookings"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <AdminBookings />
             </RequireAuth>
           }
@@ -92,7 +92,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/booking/:bookingId"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <BookingDetails />
             </RequireAuth>
           }
@@ -100,7 +100,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/users"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <AdminUsers />
             </RequireAuth>
           }
@@ -108,7 +108,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/user/:userId"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <UserDetails />
             </RequireAuth>
           }
@@ -116,7 +116,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/guides"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <AdminGuides />
             </RequireAuth>
           }
@@ -124,7 +124,7 @@ const App: React.FC = () => (
         <Route
           path="/admin/guide/:guideId"
           element={
-            <RequireAuth allowedRoles={['admin']}>
+            <RequireAuth allowedRoles={["admin"]}>
               <GuideDetails />
             </RequireAuth>
           }
@@ -138,4 +138,3 @@ const App: React.FC = () => (
 );
 
 export default App;
-

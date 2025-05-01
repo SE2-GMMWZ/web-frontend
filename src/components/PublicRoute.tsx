@@ -1,6 +1,6 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../providers/AuthProvider.tsx';
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../providers/AuthProvider.tsx";
 
 interface PublicRouteProps {
   children: React.ReactElement;
@@ -16,9 +16,11 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
 
   if (user) {
     const dest =
-      user.role === 'admin'  ? '/admin'  :
-      user.role === 'editor' ? '/editor' :
-                               '/home';
+      user.role === "admin"
+        ? "/admin"
+        : user.role === "editor"
+          ? "/editor"
+          : "/home";
 
     console.log(dest);
     return <Navigate to={dest} state={{ from: location }} replace />;
@@ -28,4 +30,3 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
 };
 
 export default PublicRoute;
-
