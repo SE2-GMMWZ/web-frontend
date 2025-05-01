@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type AdminSearchBarProps = {
   value: string;
@@ -11,7 +11,7 @@ export const AdminSearchBar: React.FC<AdminSearchBarProps> = ({
   value,
   onChange,
   onClear,
-  placeholder = 'Search...',
+  placeholder = "Search...",
 }) => {
   return (
     <div className="flex items-center gap-2 mb-4">
