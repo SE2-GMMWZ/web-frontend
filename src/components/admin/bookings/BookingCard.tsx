@@ -1,19 +1,10 @@
 import React from "react";
-
-type Item = {
-  id: string;
-  title: string;
-  user: string;
-  dateStart: string;
-  dateEnd: string;
-  location: string;
-  imageUrl: string;
-};
+import { BookingData } from "../../../types/booking";
 
 type BookingCardProps = {
-  item: Item;
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  item: BookingData;
+  onView: (item: BookingData) => void;
+  onDelete: (item: BookingData) => void;
 };
 
 export const BookingCard: React.FC<BookingCardProps> = ({
@@ -23,9 +14,10 @@ export const BookingCard: React.FC<BookingCardProps> = ({
 }) => {
   return (
     <div
-      key={item.id}
+      key={item.booking_id}
       className="border p-4 rounded shadow-sm flex gap-4 items-center"
     >
+       {/*}
       <img
         src={item.imageUrl}
         alt={item.title}
@@ -39,6 +31,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({
           Date: {item.dateStart} - {item.dateEnd}
         </p>
       </div>
+      */}
       <div className="flex gap-2">
         <button
           onClick={() => onView(item)}

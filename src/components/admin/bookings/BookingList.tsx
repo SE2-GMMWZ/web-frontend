@@ -1,20 +1,11 @@
 import React from "react";
 import BookingCard from "./BookingCard.tsx";
-
-type Item = {
-  id: string;
-  title: string;
-  user: string;
-  dateStart: string;
-  dateEnd: string;
-  location: string;
-  imageUrl: string;
-};
+import { BookingData } from "../../../types/booking";
 
 type BookingListProps = {
-  items: Item[];
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  items: BookingData[];
+  onView: (item: BookingData) => void;
+  onDelete: (item: BookingData) => void;
 };
 
 export const BookingList: React.FC<BookingListProps> = ({
@@ -27,7 +18,7 @@ export const BookingList: React.FC<BookingListProps> = ({
       <div className="flex-1 space-y-4">
         {items.map((item) => (
           <BookingCard
-            key={item.id}
+            key={item.booking_id}
             item={item}
             onView={onView}
             onDelete={onDelete}
