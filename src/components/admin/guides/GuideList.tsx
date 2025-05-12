@@ -1,19 +1,11 @@
 import React from "react";
 import GuideCard from "./GuideCard.tsx";
-
-type Item = {
-  id: string;
-  title: string;
-  author: string;
-  dock: string;
-  date: string;
-  imageUrl: string;
-};
+import { GuideData } from "../../../types/guide.tsx";
 
 type GuideListProps = {
-  items: Item[];
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  items: GuideData[];
+  onView: (item: GuideData) => void;
+  onDelete: (item: GuideData) => void;
 };
 
 export const BookingList: React.FC<GuideListProps> = ({
@@ -26,7 +18,7 @@ export const BookingList: React.FC<GuideListProps> = ({
       <div className="flex-1 space-y-4">
         {items.map((item) => (
           <GuideCard
-            key={item.id}
+            key={item.guide_id}
             item={item}
             onView={onView}
             onDelete={onDelete}
