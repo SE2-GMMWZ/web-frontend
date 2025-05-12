@@ -1,18 +1,10 @@
 import React from "react";
-
-type Item = {
-  id: string;
-  title: string;
-  author: string;
-  dock: string;
-  date: string;
-  imageUrl: string;
-};
+import { GuideData } from "../../../types/guide";
 
 type GuideCardProps = {
-  item: Item;
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  item: GuideData;
+  onView: (item: GuideData) => void;
+  onDelete: (item: GuideData) => void;
 };
 
 export const GuideCard: React.FC<GuideCardProps> = ({
@@ -20,20 +12,16 @@ export const GuideCard: React.FC<GuideCardProps> = ({
   onView,
   onDelete,
 }) => {
+  const formattedDate = new Date(item.publication_date).toLocaleDateString();
   return (
     <div
-      key={item.id}
+      key={item.guide_id}
       className="border p-4 rounded shadow-sm flex gap-4 items-center"
     >
-      <img
-        src={item.imageUrl}
-        alt={item.title}
-        className="w-16 h-16 object-cover rounded"
-      />
       <div className="flex-1">
         <p className="font-semibold">{item.title}</p>
-        <p className="text-sm text-gray-600">Author: {item.author}</p>
-        <p className="text-sm text-gray-600">Date posted: {item.date}</p>
+        <p className="text-sm text-gray-600">Author: {item.author_id}</p>
+        <p className="text-sm text-gray-600">Date posted: {formattedDate}</p>
       </div>
       <div className="flex gap-2">
         <button
