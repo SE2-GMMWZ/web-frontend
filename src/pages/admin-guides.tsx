@@ -7,7 +7,7 @@ import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useGuides } from "../hooks/useGuides.tsx";
 
 export const AdminGuides: React.FC = () => {
-  const { guides, isLoading, refetch } = useGuides();
+  const { guides } = useGuides();
   const [search, setSearch] = useState("");
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);

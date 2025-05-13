@@ -10,7 +10,7 @@ import { BookingData } from "../types/booking";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const AdminBookings: React.FC = () => {
-  const { bookings, isLoading, refetch } = useBookings();
+  const { bookings, refetch } = useBookings();
   const [search, setSearch] = useState("");
   const [selectedBooking, setSelectedBooking] = useState<BookingData | null>(null);
   const redirect = useNavigate();
