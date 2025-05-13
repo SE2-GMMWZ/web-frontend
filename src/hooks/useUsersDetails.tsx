@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { UserData } from "../types/user";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -8,7 +8,7 @@ export function useUsersDetails(id: string) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       setIsLoading(true);
       const res = await fetch(`${API_URL}/users/${id}`);
@@ -21,11 +21,12 @@ export function useUsersDetails(id: string) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchUsers();
-  }, [id]);
+  }, [fetchUsers]);
 
   return { user, isLoading, error, refetch: fetchUsers };
 }
+

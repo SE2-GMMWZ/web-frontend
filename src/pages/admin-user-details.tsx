@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const UserDetails: React.FC = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user, isLoading, error, refetch } = useUsersDetails(userId as string);
+  const { user, isLoading, refetch } = useUsersDetails(userId as string);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData | null>(null);
