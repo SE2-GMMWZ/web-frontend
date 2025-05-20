@@ -12,6 +12,9 @@ export const BookingCard: React.FC<BookingCardProps> = ({
   onView,
   onDelete,
 }) => {
+
+  const start = new Date(item.start_date).toLocaleDateString();
+  const end = new Date(item.end_date).toLocaleDateString();
   return (
     <div
       key={item.booking_id}
@@ -23,15 +26,14 @@ export const BookingCard: React.FC<BookingCardProps> = ({
         alt={item.title}
         className="w-16 h-16 object-cover rounded"
       />
+      */}
       <div className="flex-1">
-        <p className="font-semibold">{item.title}</p>
-        <p className="text-sm text-gray-600">Location: {item.location}</p>
-        <p className="text-sm text-gray-600">User: {item.user}</p>
+        <p className="font-semibold">{item.booking_id}</p>
         <p className="text-sm text-gray-600">
-          Date: {item.dateStart} - {item.dateEnd}
+          Date: {start} - {end}
         </p>
       </div>
-      */}
+      
       <div className="flex gap-2">
         <button
           onClick={() => onView(item)}
