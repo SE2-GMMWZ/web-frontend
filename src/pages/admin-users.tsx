@@ -14,7 +14,10 @@ export const AdminUsers: React.FC = () => {
   const { users: allUsers, isLoading, error } = useUsers();
 
   const filtered = allUsers.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase()),
+    user.name.toLowerCase().includes(search.toLowerCase()) ||
+    user.surname.toLowerCase().includes(search.toLowerCase())  ||
+    user.user_id.toLowerCase().includes(search.toLowerCase()) ||
+    user.email.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (

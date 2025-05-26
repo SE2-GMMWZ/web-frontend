@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { UserData } from "../types/user";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export function useUsers() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<UserData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
 

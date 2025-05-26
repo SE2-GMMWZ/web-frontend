@@ -1,18 +1,11 @@
 import React from "react";
 import UserCard from "./UserCard.tsx";
-
-type Item = {
-  id: string;
-  name: string;
-  username: string;
-  surname: string;
-  imageUrl: string;
-};
+import { UserData } from "../../../types/user.tsx";
 
 type UserListProps = {
-  items: Item[];
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  items: UserData[];
+  onView: (item: UserData) => void;
+  onDelete: (item: UserData) => void;
 };
 
 export const UserList: React.FC<UserListProps> = ({
@@ -25,7 +18,7 @@ export const UserList: React.FC<UserListProps> = ({
       <div className="flex-1 space-y-4">
         {items.map((item) => (
           <UserCard
-            key={item.id}
+            key={item.user_id}
             item={item}
             onView={onView}
             onDelete={onDelete}

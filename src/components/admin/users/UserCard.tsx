@@ -1,17 +1,10 @@
 import React from "react";
-
-type Item = {
-  id: string;
-  username: string;
-  name: string;
-  surname: string;
-  imageUrl: string;
-};
+import { UserData } from "../../../types/user";
 
 type UserCardProps = {
-  item: Item;
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  item: UserData;
+  onView: (item: UserData) => void;
+  onDelete: (item: UserData) => void;
 };
 
 export const UserCard: React.FC<UserCardProps> = ({
@@ -21,18 +14,12 @@ export const UserCard: React.FC<UserCardProps> = ({
 }) => {
   return (
     <div
-      key={item.id}
-      className="border p-4 rounded shadow-sm flex gap-4 items-center"
+      key={item.user_id}
+      className="border py-3 px-4 rounded shadow-sm flex gap-4 items-center"
     >
-      <img
-        src={item.imageUrl}
-        alt={item.name}
-        className="w-16 h-16 object-cover rounded"
-      />
       <div className="flex-1">
-        <p className="font-semibold">{item.username}</p>
-        <p className="text-sm text-gray-600">Name: {item.name}</p>
-        <p className="text-sm text-gray-600">Surname: {item.surname}</p>
+        <p className="text-m text-gray-800">{item.name} {item.surname}</p>
+        <p className="text-sm text-gray-600">Email: {item.email}</p>
         <p className="text-sm text-gray-600">userId: {item.user_id}</p>
       </div>
       <div className="flex gap-2">
