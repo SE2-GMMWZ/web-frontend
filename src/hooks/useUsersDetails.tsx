@@ -7,6 +7,7 @@ export function useUsersDetails(id: string) {
   const [user, setUsers] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
+  const [isdeleted, setIsDeleted] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -42,6 +43,19 @@ export function useUsersDetails(id: string) {
     }
   };
 
-  return { user, isLoading, error, refetch: fetchUsers, saveUser };
+  const deleteUser = async (userId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Failed to delete user");
+      setIsDeleted(true);
+    } catch (err) {
+      alert("Delete failed");
+    }
+  };
+
+  return { user, isLoading, error, refetch: fetchUsers, saveUser, deleteUser, isDeleted: isdeleted};
 }
 

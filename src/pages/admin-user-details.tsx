@@ -3,13 +3,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { useUsersDetails } from '../hooks/useUsersDetails.tsx';
 import { UserData } from "../types/user";
+import DeleteModal from "../components/admin/DeleteModal.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const UserDetails: React.FC = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user, isLoading, refetch, saveUser } = useUsersDetails(userId as string);
+  const { user, isLoading, refetch, saveUser, deleteUser, isDeleted } = useUsersDetails(userId as string);
+  const [showModal, setShowModal] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData | null>(null);
@@ -30,19 +32,10 @@ const UserDetails: React.FC = () => {
   }
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
-
-    try {
-      const res = await fetch(`${API_URL}/users/${userId}`, {
-        method: "DELETE",
-      });
-
-      if (!res.ok) throw new Error("Failed to delete user");
-
-      alert("User deleted");
+    setShowModal(false);
+    deleteUser(userId as string);
+    if(isDeleted) {
       navigate("/users");
-    } catch (err) {
-      alert("Delete failed");
     }
   };
 
@@ -75,7 +68,7 @@ const UserDetails: React.FC = () => {
       <div className="flex gap-4 mt-6">
         <button
           className="bg-red-600 text-white px-4 py-2 rounded"
-          onClick={handleDelete}
+          onClick={() => setShowModal(true)}
         >
           Delete User
         </button>
@@ -94,6 +87,12 @@ const UserDetails: React.FC = () => {
           </button>
         )}
       </div>
+      <DeleteModal
+        isOpen={showModal}
+        title={`Are you sure you want to delete this user?`}
+        onCancel={() => setShowModal(false)}
+        onConfirm={() => handleDelete()}
+      />
     </div>
   );
 };
