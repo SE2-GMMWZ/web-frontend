@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const UserDetails: React.FC = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { user, isLoading, refetch } = useUsersDetails(userId as string);
+  const { user, isLoading, refetch, saveUser } = useUsersDetails(userId as string);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserData | null>(null);
@@ -24,23 +24,10 @@ const UserDetails: React.FC = () => {
   };
 
   const handleSave = async () => {
-    try {
-      console.log(JSON.stringify(formData));
-      const res = await fetch(`${API_URL}/users/${userId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Failed to update user");
-
-      setIsEditing(false);
-      await refetch();
-      alert("User updated successfully");
-    } catch (err) {
-      alert("Update failed");
-    }
-  };
+    await saveUser(formData as UserData, userId as string);
+    setIsEditing(false);
+    await refetch();
+  }
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;

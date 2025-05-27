@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ImageIcon, LinkIcon, MapPin } from "lucide-react";
+import { ArrowLeft, LinkIcon, MapPin } from "lucide-react";
 import { useGuidesDetails } from "../hooks/useGuidesDetails.tsx";
 import { GuideData } from "../types/guide.tsx";
 
@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const GuideDetails: React.FC = () => {
   const { guideId } = useParams();
   const navigate = useNavigate();
-  const { guide, isLoading, error, refetch } = useGuidesDetails(guideId as string);
+  const { guide, isLoading, refetch } = useGuidesDetails(guideId as string);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<GuideData | null>(null);
@@ -21,7 +21,7 @@ const GuideDetails: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!formData) return;
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value, [name]: name === "publication_date" ? new Date(value).toISOString() : value });
   };
 
   const handleSave = async () => {
@@ -113,17 +113,6 @@ const GuideDetails: React.FC = () => {
             <span>{formData.location?.latitude}, {formData.location?.longitude}</span>
           </div>
         </div>
-
-        {formData.images?.length > 0 && (
-          <div>
-            <label className="block font-medium">Images:</label>
-            <div className="flex gap-4 flex-wrap">
-              {formData.images.map((url, i) => (
-                <img key={i} src={url} alt={`img-${i}`} className="w-32 h-32 object-cover rounded" />
-              ))}
-            </div>
-          </div>
-        )}
 
         {formData.links?.length > 0 && (
           <div>

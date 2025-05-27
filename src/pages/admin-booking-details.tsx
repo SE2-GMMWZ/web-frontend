@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, CalendarDays } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useBookingDetails } from "../hooks/useBookingDetails.tsx";
 import type { BookingData } from "../types/booking";
 
@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const BookingDetails: React.FC = () => {
   const { bookingId } = useParams();
   const navigate = useNavigate();
-  const { booking, isLoading, error, refetch } = useBookingDetails(bookingId as string);
+  const { booking, isLoading, refetch } = useBookingDetails(bookingId as string);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<BookingData | null>(null);
@@ -137,7 +137,6 @@ const BookingDetails: React.FC = () => {
               onChange={handleChange}
               className="border px-4 py-2 rounded w-full pr-10"
             />
-            <CalendarDays className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500" />
           </div>
         </div>
 
@@ -152,7 +151,6 @@ const BookingDetails: React.FC = () => {
               onChange={handleChange}
               className="border px-4 py-2 rounded w-full pr-10"
             />
-            <CalendarDays className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500" />
           </div>
         </div>
 

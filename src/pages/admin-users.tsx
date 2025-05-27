@@ -5,13 +5,15 @@ import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
 import UserList from "../components/admin/users/UserList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useUsers } from "../hooks/useUsers.tsx";
+import { UserData } from "../types/user.tsx";
 
 export const AdminUsers: React.FC = () => {
   const [search, setSearch] = useState("");
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
-  const { users: allUsers, isLoading, error } = useUsers();
+  const { users: allUsers, isLoading, error, deleteUser } = useUsers();
 
   const filtered = allUsers.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -19,6 +21,13 @@ export const AdminUsers: React.FC = () => {
     user.user_id.toLowerCase().includes(search.toLowerCase()) ||
     user.email.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const handleDelete = () => {
+    if(selectedUser) {
+      deleteUser(selectedUser.user_id);
+    }
+    setShowModal(false);
+  };
 
   return (
     <div className="p-6 flex flex-col items-center">
@@ -39,17 +48,15 @@ export const AdminUsers: React.FC = () => {
         <UserList
           items={filtered}
           onView={(user) => redirect(`/admin/user/${user.user_id}`)}
-          onDelete={(user) => setShowModal(true)}
+          onDelete={(user) => {setShowModal(true); setSelectedUser(user)}}
         />
       )}
 
       <DeleteModal
         isOpen={showModal}
-        title="Are you sure you want to delete [User X]?"
+        title={`Are you sure you want to delete ${selectedUser?.user_id}?`}
         onCancel={() => setShowModal(false)}
-        onConfirm={() => {
-          setShowModal(false);
-        }}
+        onConfirm={() => handleDelete()}
       />
     </div>
   );

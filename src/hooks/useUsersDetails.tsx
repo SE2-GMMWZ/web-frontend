@@ -27,6 +27,21 @@ export function useUsersDetails(id: string) {
     fetchUsers();
   }, [fetchUsers]);
 
-  return { user, isLoading, error, refetch: fetchUsers };
+  const saveUser = async (formData: UserData, userId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData).replace("phone_number", "phone"),
+      });
+
+      if (!res.ok) throw new Error("Failed to update user");
+
+    } catch (err) {
+      alert("Update failed");
+    }
+  };
+
+  return { user, isLoading, error, refetch: fetchUsers, saveUser };
 }
 

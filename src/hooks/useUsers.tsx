@@ -25,5 +25,16 @@ export function useUsers() {
     fetchUsers();
   }, []);
 
-  return { users, isLoading, error };
+  const deleteUser = async (userId : string) => {
+    try {
+      const res = await fetch(`${API_URL}/users/${userId}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Failed to delete user");
+    } catch (err) {
+      alert("Delete failed");
+    }
+  };
+
+  return { users, isLoading, error, deleteUser };
 }
