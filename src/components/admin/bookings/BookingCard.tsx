@@ -1,10 +1,10 @@
 import React from "react";
-import { BookingData } from "../../../types/booking";
+import { BookingListData } from "../../../types/booking";
 
 type BookingCardProps = {
-  item: BookingData;
-  onView: (item: BookingData) => void;
-  onDelete: (item: BookingData) => void;
+  item: BookingListData;
+  onView: (item: BookingListData) => void;
+  onDelete: (item: BookingListData) => void;
 };
 
 export const BookingCard: React.FC<BookingCardProps> = ({
@@ -18,17 +18,21 @@ export const BookingCard: React.FC<BookingCardProps> = ({
   return (
     <div
       key={item.booking_id}
-      className="border p-4 rounded shadow-sm flex gap-4 items-center"
+      className="border p-4 rounded shadow-sm flex gap-4 items-center width-full"
     >
-       {/*}
-      <img
-        src={item.imageUrl}
-        alt={item.title}
-        className="w-16 h-16 object-cover rounded"
-      />
-      */}
       <div className="flex-1">
-        <p className="font-semibold">{item.booking_id}</p>
+        <div className="flex flex-row gap-2">
+          <p>Dock name:</p>
+          <p className="font-semibold">{item.dock_name}</p>
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <p>Sailor name:</p>
+          <p className="font-semibold">{item.sailor_name}</p>
+        </div>
+        
+        
+        
         <p className="text-sm text-gray-600">
           Date: {start} - {end}
         </p>

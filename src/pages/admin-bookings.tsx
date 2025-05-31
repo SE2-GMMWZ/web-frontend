@@ -5,14 +5,15 @@ import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
 import BookingList from "../components/admin/bookings/BookingList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useBookings } from "../hooks/useBookings.tsx";
-import { BookingData } from "../types/booking";
+import { BookingListData } from "../types/booking";
+import Pagination from "../components/Pagination.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const AdminBookings: React.FC = () => {
-  const { bookings, refetch } = useBookings();
+  const { bookings, isLoading, error, page, refetch, setPage} = useBookings();
   const [search, setSearch] = useState("");
-  const [selectedBooking, setSelectedBooking] = useState<BookingData | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<BookingListData | null>(null);
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
@@ -46,14 +47,23 @@ export const AdminBookings: React.FC = () => {
         placeholder="Search bookings..."
       />
 
-      <BookingList
-        items={filtered}
-        onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
-        onDelete={(booking) => {
-          setSelectedBooking(booking);
-          setShowModal(true);
-        }}
-      />
+      <div className="width-1/2">
+        <BookingList
+          items={filtered}
+          onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
+          onDelete={(booking) => {
+            setSelectedBooking(booking);
+            setShowModal(true);
+          }}
+        />
+      </div>
+      {!isLoading && !error && (
+        <Pagination
+          currentPage={page}
+          setPage={setPage}
+          hasNextPage={true}
+        />
+      )}
 
       <DeleteModal
         isOpen={showModal}
