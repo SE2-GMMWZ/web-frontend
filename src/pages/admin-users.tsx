@@ -6,6 +6,7 @@ import UserList from "../components/admin/users/UserList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useUsers } from "../hooks/useUsers.tsx";
 import { UserData } from "../types/user.tsx";
+import Pagination from "../components/Pagination.tsx";
 
 export const AdminUsers: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -13,7 +14,7 @@ export const AdminUsers: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
 
-  const { users: allUsers, isLoading, error, deleteUser } = useUsers();
+  const { users: allUsers, isLoading, error, page, deleteUser, setPage } = useUsers();
 
   const filtered = allUsers.filter((user) =>
     user.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -49,6 +50,13 @@ export const AdminUsers: React.FC = () => {
           items={filtered}
           onView={(user) => redirect(`/admin/user/${user.user_id}`)}
           onDelete={(user) => {setShowModal(true); setSelectedUser(user)}}
+        />
+      )}
+      {!isLoading && !error && (
+        <Pagination
+          currentPage={page}
+          setPage={setPage}
+          hasNextPage={true}
         />
       )}
 

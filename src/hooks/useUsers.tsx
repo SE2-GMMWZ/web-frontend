@@ -7,11 +7,12 @@ export function useUsers() {
   const [users, setUsers] = useState<UserData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${API_URL}/users/list`);
+        const res = await fetch(`${API_URL}/users/list?offset=${page*10}`);
         if (!res.ok) throw new Error("Failed to fetch users");
         const data = await res.json();
         setUsers(data);
@@ -23,7 +24,7 @@ export function useUsers() {
     };
 
     fetchUsers();
-  }, []);
+  }, [page]);
 
   const deleteUser = async (userId : string) => {
     try {
@@ -36,5 +37,5 @@ export function useUsers() {
     }
   };
 
-  return { users, isLoading, error, deleteUser };
+  return { users, isLoading, error, page, deleteUser, setPage };
 }
