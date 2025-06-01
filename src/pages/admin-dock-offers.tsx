@@ -1,35 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import Pagination from "../components/Pagination.tsx";
 import useDockingSpots from "../hooks/useDockingSpots.tsx";
-import { DockingSpotData } from "../types/docking-spot.tsx";
+import { DockingSpotEnriched } from "../types/docking-spot.tsx";
 import AdminCardList from "../components/admin/AdminCardList.tsx";
 import DockCard from "../components/admin/cards/DockCard.tsx";
+import PageSelector from "../components/PageSelector.tsx";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-export const AdminDockingSpots: React.FC = () => {
-  const { dockingSpots, isLoading, error, page,
-     search, setSearch, refetch, setPage } = useDockingSpots();
-
-  const [selectedDock, setSelectedDock] = useState<DockingSpotData | null>(null);
+export default function AdminDockingSpots() {
+  const { dockingSpots, isLoading, error, page, search, totalPages,
+     deleteDockingSpot, setSearch, setPage } = useDockingSpots();
+  const [selectedDock, setSelectedDock] = useState<DockingSpotEnriched | null>(null);
   const [showModal, setShowModal] = useState(false);
   const redirect = useNavigate();
 
   const handleDelete = async () => {
     if (!selectedDock) return;
-    try {
-      await fetch(`${API_URL}/docking-spots/${selectedDock.dock_id}`, {
-        method: "DELETE",
-      });
-      setShowModal(false);
-      await refetch();
-    } catch (error) {
-      alert("Failed to delete docking spot");
-    }
+    await deleteDockingSpot(selectedDock.dock_id);
+    setShowModal(false);
   };
 
   return (
@@ -42,7 +33,7 @@ export const AdminDockingSpots: React.FC = () => {
         value={search}
         onChange={setSearch}
         onClear={() => setSearch("")}
-        placeholder="Search bookings..."
+        placeholder="Search docking spots..."
       />
 
       <AdminCardList
@@ -55,14 +46,11 @@ export const AdminDockingSpots: React.FC = () => {
         CardComponent={DockCard}
       />
 
-
       {!isLoading && !error && (
-        <Pagination
-          currentPage={page}
-          setPage={setPage}
-          hasNextPage={true}
-        />
+        <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />
       )}
+
+      <PageSelector currentPage={page} totalPages={totalPages} setPage={setPage} />
 
       <DeleteModal
         isOpen={showModal}
@@ -72,6 +60,4 @@ export const AdminDockingSpots: React.FC = () => {
       />
     </div>
   );
-};
-
-export default AdminDockingSpots;
+}

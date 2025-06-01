@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
@@ -8,26 +8,17 @@ import { UserData } from "../types/user.tsx";
 import Pagination from "../components/Pagination.tsx";
 import AdminCardList from "../components/admin/AdminCardList.tsx";
 import UserCard from "../components/admin/cards/UserCard.tsx";
+import PageSelector from "../components/PageSelector.tsx";
 
-export const AdminUsers: React.FC = () => {
-  const [search, setSearch] = useState("");
-  const redirect = useNavigate();
-  const [showModal, setShowModal] = useState(false);
+export default function AdminUsers() {
+  const { users, isLoading, error, page, search, totalPages, deleteUser, setSearch, setPage } = useUsers();
   const [selectedUser, setSelectedUser] = useState<UserData | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const redirect = useNavigate();
 
-  const { users: allUsers, isLoading, error, page, deleteUser, setPage } = useUsers();
-
-  const filtered = allUsers.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase()) ||
-    user.surname.toLowerCase().includes(search.toLowerCase())  ||
-    user.user_id.toLowerCase().includes(search.toLowerCase()) ||
-    user.email.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const handleDelete = () => {
-    if(selectedUser) {
-      deleteUser(selectedUser.user_id);
-    }
+  const handleDelete = async () => {
+    if (!selectedUser) return;
+    await deleteUser(selectedUser.user_id);
     setShowModal(false);
   };
 
@@ -36,6 +27,7 @@ export const AdminUsers: React.FC = () => {
       <AdminNavbar />
       <p className="text-2xl mb-5 font-bold">Review Users</p>
       <p className="text-xl mb-5">Search for a user</p>
+
       <AdminSearchBar
         value={search}
         onChange={setSearch}
@@ -43,33 +35,28 @@ export const AdminUsers: React.FC = () => {
         placeholder="Search users..."
       />
 
-      {isLoading && <p>Loading users...</p>}
-      {error && <p className="text-red-500">Failed to load users: {error}</p>}
+      <AdminCardList
+        items={users}
+        onView={(user) => redirect(`/admin/user/${user.user_id}`)}
+        onDelete={(user) => {
+          setSelectedUser(user);
+          setShowModal(true);
+        }}
+        CardComponent={UserCard}
+      />
 
       {!isLoading && !error && (
-        <AdminCardList
-          items={filtered}
-          onView={(user) => redirect(`/admin/user/${user.user_id}`)}
-          onDelete={(user) => {setShowModal(true); setSelectedUser(user)}}
-          CardComponent={UserCard}
-        />
+        <Pagination currentPage={page} totalPages={totalPages} setPage={setPage} />
       )}
-      {!isLoading && !error && (
-        <Pagination
-          currentPage={page}
-          setPage={setPage}
-          hasNextPage={true}
-        />
-      )}
+
+      <PageSelector currentPage={page} totalPages={totalPages} setPage={setPage} />
 
       <DeleteModal
         isOpen={showModal}
-        title={`Are you sure you want to delete ${selectedUser?.user_id}?`}
+        title={`Are you sure you want to delete user "${selectedUser?.user_id}"?`}
         onCancel={() => setShowModal(false)}
-        onConfirm={() => handleDelete()}
+        onConfirm={handleDelete}
       />
     </div>
   );
-};
-
-export default AdminUsers;
+}

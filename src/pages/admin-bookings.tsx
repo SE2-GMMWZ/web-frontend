@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
@@ -7,28 +7,20 @@ import { useBookings } from "../hooks/useBookings.tsx";
 import { BookingEnriched } from "../types/booking";
 import BookingCard from "../components/admin/cards/BookingCard.tsx";
 import AdminCardList from "../components/admin/AdminCardList.tsx";
-
 import Pagination from "../components/Pagination.tsx";
+import PageSelector from "../components/PageSelector.tsx";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-export const AdminBookings: React.FC = () => {
-  const { bookings, isLoading, error, page, search, setSearch, refetch, setPage} = useBookings();
+export default function AdminBookings(){
+  const { bookings, isLoading, error, page, search, totalPages, 
+    deleteGuide, setSearch, setPage} = useBookings();
   const [selectedBooking, setSelectedBooking] = useState<BookingEnriched | null>(null);
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
     if (!selectedBooking) return;
-    try {
-      await fetch(`${API_URL}/bookings/${selectedBooking.booking_id}`, {
-        method: "DELETE",
-      });
-      setShowModal(false);
-      await refetch();
-    } catch (error) {
-      alert("Failed to delete booking");
-    }
+    deleteGuide(selectedBooking.booking_id);
+    setShowModal(false);
   };
 
   return (
@@ -57,9 +49,11 @@ export const AdminBookings: React.FC = () => {
         <Pagination
           currentPage={page}
           setPage={setPage}
-          hasNextPage={true}
+          totalPages={totalPages}
         />
       )}
+
+      <PageSelector currentPage={page} totalPages={totalPages} setPage={setPage} />
 
       <DeleteModal
         isOpen={showModal}
@@ -70,5 +64,3 @@ export const AdminBookings: React.FC = () => {
     </div>
   );
 };
-
-export default AdminBookings;

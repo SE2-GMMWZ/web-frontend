@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { GuideData } from "../types/guide";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -6,25 +6,38 @@ const API_URL = process.env.REACT_APP_API_URL;
 export function useGuides() {
   const [guides, setGuides] = useState<GuideData[]>([]);
   const [isLoading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [onlyUnapproved, setOnlyUnapproved] = useState(false);
 
-  const fetchGuides = useCallback(async () => {
+  const fetchGuides = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const res = await fetch(`${API_URL}/guides/list?offset=${page * 10}&sailor_id=${search}${onlyUnapproved ? "&is_approved=false" : ""}`);
+      const res = await fetch(
+        `${API_URL}/guides/list?page=${page}` +
+        (search !== "" ? `&author_id=${encodeURIComponent(search)}` : "") +
+        (onlyUnapproved ? `&is_approved=false` : "")
+      );
       if (!res.ok) throw new Error("Failed to fetch guides");
       const data = await res.json();
-      setGuides(data);
+      setGuides(data.guides || []);
+      setTotalPages(data.total_pages || 1);
     } catch (err: any) {
       setError(err.message || "Unexpected error");
     } finally {
       setLoading(false);
     }
-  }, [page, search, onlyUnapproved]);
+  };
 
-  useEffect(() => { fetchGuides(); }, [fetchGuides]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      fetchGuides();
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [page, search, onlyUnapproved]);
 
   const deleteGuide = async (id: string) => {
     try {
@@ -37,6 +50,7 @@ export function useGuides() {
   };
 
   return {
-    guides, isLoading, error, page, search, onlyUnapproved,
-    setOnlyUnapproved, setPage, setSearch, deleteGuide };
+    guides, isLoading, error, page, search, totalPages,
+    deleteGuide, setSearch, setPage, onlyUnapproved, setOnlyUnapproved
+  };
 }

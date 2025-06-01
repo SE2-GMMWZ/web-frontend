@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
-import { DockingSpotData, DockingSpotEnriched } from '../types/docking-spot';
+import { useEffect, useState } from "react";
+import { DockingSpotData, DockingSpotEnriched } from "../types/docking-spot";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -9,15 +9,20 @@ export default function useDockingSpots() {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchDockingSpots = useCallback(async () => {
+  const fetchDockingSpots = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/docking-spots/list?offset=${page * 10}&name=${search}`);
+      const res = await fetch(
+        `${API_URL}/docking-spots/list?page=${page}${search !== "" ? `&owner_id=${encodeURIComponent(search)}` : ""}`
+      );
       if (!res.ok) throw new Error("Failed to fetch docking spots");
-      const rawDocks: DockingSpotData[] = await res.json();
+      const data = await res.json();
+      const rawDocks: DockingSpotData[] = data.docking_spots || [];
+      setTotalPages(data.total_pages || 1);
 
       const uniqueOwnerIds = [...new Set(rawDocks.map((d) => d.owner_id))];
 
@@ -34,7 +39,7 @@ export default function useDockingSpots() {
 
       const enriched: DockingSpotEnriched[] = rawDocks.map((dock) => ({
         ...dock,
-        owner_name: ownerMap[dock.owner_id] || "Unknown Owner",
+        owner_name: ownerMap[dock.owner_id] || "Unknown Owner"
       }));
 
       setDockingSpots(enriched);
@@ -43,11 +48,25 @@ export default function useDockingSpots() {
     } finally {
       setLoading(false);
     }
-  }, [page, search]);
-  useEffect(() => {
-    fetchDockingSpots();
-  }, [fetchDockingSpots]);
+  };
 
-  return { dockingSpots, isLoading, error, page, search, 
-    setSearch, refetch: fetchDockingSpots, setPage };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      fetchDockingSpots();
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [page, search]);
+
+  const deleteDockingSpot = async (dockId: string) => {
+    try {
+      const res = await fetch(`${API_URL}/docking-spots/${dockId}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete docking spot");
+      await fetchDockingSpots();
+    } catch {
+      alert("Failed to delete docking spot");
+    }
+  };
+
+  return { dockingSpots, isLoading, error, page, search, totalPages, 
+    deleteDockingSpot, setSearch, setPage };
 }

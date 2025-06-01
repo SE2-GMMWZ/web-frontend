@@ -21,7 +21,7 @@ export default function AdminCardList<T>({
 }: AdminCardListProps<T>) {
   return (
     <div className={`flex ${layout === "centered" ? "justify-center w-full" : "gap-4"}`}>
-      <div className={`${layout === "centered" ? "w-[600px]" : "flex-1"} space-y-4`}>
+      <div className={`${layout === "centered" ? "w-[700px]" : "flex-1"} space-y-4`}>
         {items.map((item, index) => (
           <CardComponent key={index} item={item} onView={onView} onDelete={onDelete} />
         ))}

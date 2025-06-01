@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
@@ -8,10 +8,11 @@ import { useGuides } from "../hooks/useGuides.tsx";
 import { GuideData } from "../types/guide";
 import AdminCardList from "../components/admin/AdminCardList.tsx";
 import { GuideCard } from "../components/admin/cards/GuideCard.tsx";
+import PageSelector from "../components/PageSelector.tsx";
 
-export const AdminGuides: React.FC = () => {
-  const { guides, isLoading, error, page, search, setSearch,
-     onlyUnapproved, setOnlyUnapproved, setPage, deleteGuide } = useGuides();
+export default function AdminGuides() {
+  const { guides, isLoading, error, page, search, totalPages,
+    deleteGuide, setSearch, setPage, onlyUnapproved, setOnlyUnapproved } = useGuides();
   const [selectedGuide, setSelectedGuide] = useState<GuideData | null>(null);
   const [showModal, setShowModal] = useState(false);
   const redirect = useNavigate();
@@ -52,8 +53,10 @@ export const AdminGuides: React.FC = () => {
       />
 
       {!isLoading && !error && (
-        <Pagination currentPage={page} setPage={setPage} hasNextPage={true} />
+        <Pagination currentPage={page} setPage={setPage} totalPages={totalPages} />
       )}
+
+      <PageSelector currentPage={page} totalPages={totalPages} setPage={setPage} />
 
       <DeleteModal
         isOpen={showModal}
@@ -63,6 +66,4 @@ export const AdminGuides: React.FC = () => {
       />
     </div>
   );
-};
-
-export default AdminGuides;
+}

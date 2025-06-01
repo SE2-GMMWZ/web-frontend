@@ -6,6 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 export function useBookings() {
   const [bookings, setBookings] = useState<BookingEnriched[]>([]);
   const [isLoading, setLoading] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -15,9 +16,11 @@ export function useBookings() {
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/bookings/list?offset=${page * 10}&sailor_id=${search}`);
+      const res = await fetch(`${API_URL}/bookings/list?page=${page}${search != "" ? `&sailor_id=${encodeURIComponent(search)}` : ""}`);
       if (!res.ok) throw new Error("Failed to fetch bookings");
-      const rawBookings: BookingData[] = await res.json();
+      const data = await res.json();
+      const rawBookings: BookingData[] = data.bookings || [];
+      setTotalPages(data.total_pages || 1);
 
       const uniqueSailorIds = [...new Set(rawBookings.map(b => b.sailor_id))];
       const uniqueDockIds = [...new Set(rawBookings.map(b => b.dock_id))];
@@ -27,7 +30,7 @@ export function useBookings() {
         uniqueSailorIds.map(async id => {
           const res = await fetch(`${API_URL}/users/${id}`);
           if (res.ok) {
-            const data = await res.json();
+            const data = await res.json();     
             sailorMap[id] = data.user.name +  " " + data.user.surname;
           }
         })
@@ -63,5 +66,16 @@ export function useBookings() {
     fetchBookings();
   }, [fetchBookings]);
 
-  return { bookings, isLoading, error, page, search, setSearch, refetch: fetchBookings, setPage};
+  const deleteGuide = async (id: string) => {
+    try {
+      const res = await fetch(`${API_URL}/bookings/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete guide");
+      await fetchBookings();
+    } catch (err) {
+      alert("Failed to delete guide");
+    }
+  };
+
+  return { bookings, isLoading, error, page, search, totalPages,
+     deleteGuide, setSearch, fetchBookings, setPage};
 }
