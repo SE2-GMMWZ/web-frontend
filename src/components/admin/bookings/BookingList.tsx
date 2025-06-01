@@ -1,11 +1,11 @@
 import React from "react";
 import BookingCard from "./BookingCard.tsx";
-import { BookingListData } from "../../../types/booking";
+import { BookingEnriched } from "../../../types/booking";
 
 type BookingListProps = {
-  items: BookingListData[];
-  onView: (item: BookingListData) => void;
-  onDelete: (item: BookingListData) => void;
+  items: BookingEnriched[];
+  onView: (item: BookingEnriched) => void;
+  onDelete: (item: BookingEnriched) => void;
 };
 
 export const BookingList: React.FC<BookingListProps> = ({

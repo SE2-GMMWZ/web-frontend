@@ -1,10 +1,10 @@
 import React from "react";
-import { BookingListData } from "../../../types/booking";
+import { BookingEnriched } from "../../../types/booking";
 
 type BookingCardProps = {
-  item: BookingListData;
-  onView: (item: BookingListData) => void;
-  onDelete: (item: BookingListData) => void;
+  item: BookingEnriched;
+  onView: (item: BookingEnriched) => void;
+  onDelete: (item: BookingEnriched) => void;
 };
 
 export const BookingCard: React.FC<BookingCardProps> = ({
