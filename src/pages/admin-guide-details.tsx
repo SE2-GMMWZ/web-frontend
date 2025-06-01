@@ -24,7 +24,7 @@ export default function GuideDetails() {
           { name: "title" },
           { name: "author_id", readOnly: true },
           { name: "publication_date", readOnly: true },
-          { name: "content" },
+          { name: "content", multiline: true },
           { name: "is_approved" }
         ]}
         formData={formData}

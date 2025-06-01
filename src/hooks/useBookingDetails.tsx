@@ -47,12 +47,17 @@ export default function useBookingDetails(id: string) {
 
   useEffect(() => { fetchBooking(); }, [fetchBooking]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!formData) return;
-    const { name, value } = e.target;
-    const parsed = name === "people" ? Number(value) : name === "start_date" || name === "end_date" ? new Date(value).toISOString() : value;
-    setFormData({ ...formData, [name]: parsed });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  if (!formData) return;
+  const { name, value } = e.target;
+  const parsed =
+    name === "people"
+      ? Number(value)
+      : name === "start_date" || name === "end_date"
+      ? new Date(value).toISOString()
+      : value;
+  setFormData({ ...formData, [name]: parsed });
+};
 
   const handleSave = async () => {
     if (!formData) return;

@@ -16,7 +16,7 @@ export default function useUsersDetails(id: string) {
       if (user) setFormData(user);
     }, [user]);
   
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       if (!formData) return;
       setFormData({ ...formData, [e.target.name]: e.target.value });
     };
