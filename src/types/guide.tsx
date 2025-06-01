@@ -12,3 +12,7 @@ export type GuideData = {
   };
   is_approved: boolean;
 }
+
+export type GuideEnriched = GuideData & {
+  author_name: string;
+};
