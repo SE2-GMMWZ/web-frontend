@@ -15,7 +15,7 @@ export function useBookings() {
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/bookings/list?offset=${page * 10}&search=${search}`);
+      const res = await fetch(`${API_URL}/bookings/list?offset=${page * 10}&sailor_id=${search}`);
       if (!res.ok) throw new Error("Failed to fetch bookings");
       const rawBookings: BookingData[] = await res.json();
 
@@ -61,12 +61,12 @@ export function useBookings() {
     } finally {
       setLoading(false);
     }
-  }, [page]);
+  }, [page, search]);
 
 
   useEffect(() => {
     fetchBookings();
-  }, [page, search]);
+  }, [fetchBookings]);
 
   return { bookings, isLoading, error, page, search, setSearch, refetch: fetchBookings, setPage};
 }
