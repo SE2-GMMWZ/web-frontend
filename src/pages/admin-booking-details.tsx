@@ -19,9 +19,16 @@ export default function BookingDetails() {
   return (
     <DetailsLayout title="Booking Details" onBack={() => navigate("/admin/bookings")}>
       <InputFields<BookingData>
-        fields={["user_id", "dock_id", "start_date", "end_date", "payment_status"]}
+        fields={[
+          { name: "booking_id", readOnly: true },
+          { name: "sailor_id", readOnly: true },
+          { name: "dock_id", readOnly: true },
+          { name: "start_date" },
+          { name: "end_date" },
+          { name: "payment_method" },
+          { name: "payment_status" }
+        ]}
         formData={formData}
-        isEditing={isEditing}
         onChange={handleChange}
       />
 
