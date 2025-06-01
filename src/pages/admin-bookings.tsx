@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import BookingList from "../components/admin/bookings/BookingList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useBookings } from "../hooks/useBookings.tsx";
-import { BookingListData } from "../types/booking";
+import { BookingEnriched } from "../types/booking";
+import BookingCard from "../components/admin/cards/BookingCard.tsx";
+import AdminCardList from "../components/admin/AdminCardList.tsx";
+
 import Pagination from "../components/Pagination.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const AdminBookings: React.FC = () => {
   const { bookings, isLoading, error, page, search, setSearch, refetch, setPage} = useBookings();
-  const [selectedBooking, setSelectedBooking] = useState<BookingListData | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<BookingEnriched | null>(null);
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
@@ -42,14 +44,14 @@ export const AdminBookings: React.FC = () => {
         placeholder="Search bookings..."
       />
       
-      <BookingList
+      <AdminCardList 
         items={bookings}
-        onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
+        onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)} 
         onDelete={(booking) => {
           setSelectedBooking(booking);
           setShowModal(true);
         }}
-      />
+        CardComponent={BookingCard} layout="centered" />
       
       {!isLoading && !error && (
         <Pagination

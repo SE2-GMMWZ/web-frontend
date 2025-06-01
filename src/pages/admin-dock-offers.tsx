@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import DockList from "../components/admin/docks/DockList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import Pagination from "../components/Pagination.tsx";
 import useDockingSpots from "../hooks/useDockingSpots.tsx";
 import { DockingSpotData } from "../types/docking-spot.tsx";
+import AdminCardList from "../components/admin/AdminCardList.tsx";
+import DockCard from "../components/admin/cards/DockCard.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -44,14 +45,16 @@ export const AdminDockingSpots: React.FC = () => {
         placeholder="Search bookings..."
       />
 
-      <DockList
+      <AdminCardList
         items={dockingSpots}
         onView={(dock) => redirect(`/admin/dock/${dock.dock_id}`)}
         onDelete={(dock) => {
           setSelectedDock(dock);
           setShowModal(true);
         }}
+        CardComponent={DockCard}
       />
+
 
       {!isLoading && !error && (
         <Pagination

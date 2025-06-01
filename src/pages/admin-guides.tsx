@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import GuideList from "../components/admin/guides/GuideList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import Pagination from "../components/Pagination.tsx";
 import { useGuides } from "../hooks/useGuides.tsx";
 import { GuideData } from "../types/guide";
+import AdminCardList from "../components/admin/AdminCardList.tsx";
+import { GuideCard } from "../components/admin/cards/GuideCard.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -54,13 +55,14 @@ export const AdminGuides: React.FC = () => {
         </label>
       </div>
 
-      <GuideList
+      <AdminCardList
         items={guides}
         onView={(guide) => redirect(`/admin/guide/${guide.guide_id}`)}
         onDelete={(guide) => {
           setSelectedGuide(guide);
           setShowModal(true);
         }}
+        CardComponent={GuideCard}
       />
 
       {!isLoading && !error && (

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import UserList from "../components/admin/users/UserList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import { useUsers } from "../hooks/useUsers.tsx";
 import { UserData } from "../types/user.tsx";
 import Pagination from "../components/Pagination.tsx";
+import AdminCardList from "../components/admin/AdminCardList.tsx";
+import UserCard from "../components/admin/cards/UserCard.tsx";
 
 export const AdminUsers: React.FC = () => {
   const [search, setSearch] = useState("");
@@ -46,10 +47,11 @@ export const AdminUsers: React.FC = () => {
       {error && <p className="text-red-500">Failed to load users: {error}</p>}
 
       {!isLoading && !error && (
-        <UserList
+        <AdminCardList
           items={filtered}
           onView={(user) => redirect(`/admin/user/${user.user_id}`)}
           onDelete={(user) => {setShowModal(true); setSelectedUser(user)}}
+          CardComponent={UserCard}
         />
       )}
       {!isLoading && !error && (
