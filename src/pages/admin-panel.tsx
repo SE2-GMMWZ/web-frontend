@@ -1,5 +1,5 @@
 import React from "react";
-import AdminPanelCard from "../components/admin/panel/PanelCard.tsx";
+import AdminPanelCard from "../components/admin/cards/PanelCard.tsx";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
 
 export const AdminPanel: React.FC = () => {
