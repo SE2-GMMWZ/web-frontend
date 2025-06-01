@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { DockingSpotData, DockingSpotListData } from '../types/docking-spot';
+import { DockingSpotData, DockingSpotEnriched } from '../types/docking-spot';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function useDockingSpots() {
-  const [dockingSpots, setDockingSpots] = useState<DockingSpotListData[]>([]);
+  const [dockingSpots, setDockingSpots] = useState<DockingSpotEnriched[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -32,7 +32,7 @@ export default function useDockingSpots() {
         })
       );
 
-      const enriched: DockingSpotListData[] = rawDocks.map((dock) => ({
+      const enriched: DockingSpotEnriched[] = rawDocks.map((dock) => ({
         ...dock,
         owner_name: ownerMap[dock.owner_id] || "Unknown Owner",
       }));

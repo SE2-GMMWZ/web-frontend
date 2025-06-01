@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import type { DockingSpotData } from "../types/docking-spot";
+import type { DockingSpotData, DockingSpotEnriched } from "../types/docking-spot";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function useDockingSpotDetails(id: string) {
-  const [dock, setDock] = useState<DockingSpotData | null>(null);
-  const [formData, setFormData] = useState<DockingSpotData | null>(null);
+  const [dock, setDock] = useState<DockingSpotEnriched | null>(null);
+  const [formData, setFormData] = useState<DockingSpotEnriched | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -21,8 +21,17 @@ export default function useDockingSpotDetails(id: string) {
       setIsLoading(true);
       const res = await fetch(`${API_URL}/docking-spots/${id}`);
       if (!res.ok) throw new Error("Failed to fetch docking spot");
-      const data = await res.json();
-      setDock(data);
+
+      const dockData: DockingSpotData = await res.json();
+
+      const userRes = await fetch(`${API_URL}/users/${dockData.owner_id}`);
+      let owner_name = "Unknown Owner";
+      if (userRes.ok) {
+        const userData = await userRes.json();
+        owner_name = `${userData.user.name} ${userData.user.surname}`;
+      }
+
+      setDock({ ...dockData, owner_name });
     } catch (err) {
       console.error(err);
     } finally {
@@ -38,7 +47,6 @@ export default function useDockingSpotDetails(id: string) {
     if (!formData) return;
 
     const { name, value } = e.target;
-
     const parsedValue =
       name === "price_per_night" || name === "price_per_person" || name === "services_pricing"
         ? Number(value)
@@ -48,11 +56,15 @@ export default function useDockingSpotDetails(id: string) {
   };
 
   const handleSave = async () => {
+    if (!formData) return;
+
+    const { owner_name, ...rawData }: DockingSpotEnriched = formData;
+
     try {
       const res = await fetch(`${API_URL}/docking-spots/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(rawData),
       });
 
       if (!res.ok) throw new Error("Failed to update docking spot");

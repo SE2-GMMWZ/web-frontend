@@ -12,6 +12,6 @@ export type DockingSpotData = {
 };
 
 
-export type DockingSpotListData = DockingSpotData & {
+export type DockingSpotEnriched = DockingSpotData & {
   owner_name: string;
 };
