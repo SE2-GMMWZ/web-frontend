@@ -46,17 +46,16 @@ export const AdminBookings: React.FC = () => {
         onClear={() => setSearch("")}
         placeholder="Search bookings..."
       />
-
-      <div className="width-1/2">
-        <BookingList
-          items={filtered}
-          onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
-          onDelete={(booking) => {
-            setSelectedBooking(booking);
-            setShowModal(true);
-          }}
-        />
-      </div>
+      
+      <BookingList
+        items={filtered}
+        onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
+        onDelete={(booking) => {
+          setSelectedBooking(booking);
+          setShowModal(true);
+        }}
+      />
+      
       {!isLoading && !error && (
         <Pagination
           currentPage={page}
