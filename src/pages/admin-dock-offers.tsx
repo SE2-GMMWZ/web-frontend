@@ -1,64 +1,76 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/admin/AdminNavbar.tsx";
-import DockList from "../components/admin/docks/DockList.tsx";
 import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
+import DockList from "../components/admin/docks/DockList.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
+import Pagination from "../components/Pagination.tsx";
+import useDockingSpots from "../hooks/useDockingSpots.tsx";
+import { DockingSpotData } from "../types/docking-spot.tsx";
 
-export const AdminDockOffers: React.FC = () => {
-  const [search, setSearch] = useState("");
-  const redirect = useNavigate();
+const API_URL = process.env.REACT_APP_API_URL;
+
+export const AdminDockingSpots: React.FC = () => {
+  const { dockingSpots, isLoading, error, page,
+     search, setSearch, refetch, setPage } = useDockingSpots();
+
+  const [selectedDock, setSelectedDock] = useState<DockingSpotData | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const redirect = useNavigate();
 
-  const allDocks = [
-    {
-      id: "1",
-      title: "Big Dock",
-      location: "Dock A",
-      owner: "Jessica Jones",
-      imageUrl:
-        "https://helloartsy.com/wp-content/uploads/kids/beach/how-to-draw-a-dock/how-to-draw-a-dock-step-9.jpg",
-    },
-    {
-      id: "2",
-      title: "Docky dock",
-      location: "Dock B",
-      owner: "Luke Cage",
-      imageUrl:
-        "https://thumbs.dreamstime.com/b/sunset-river-boat-dock-flying-birds-against-clouds-setting-sun-hand-painted-watercolor-illustration-paper-texture-141681745.jpg",
-    },
-  ];
+  const handleDelete = async () => {
+    if (!selectedDock) return;
+    try {
+      await fetch(`${API_URL}/docking-spots/${selectedDock.dock_id}`, {
+        method: "DELETE",
+      });
+      setShowModal(false);
+      await refetch();
+    } catch (error) {
+      alert("Failed to delete docking spot");
+    }
+  };
 
-  const filtered = allDocks.filter((dock) =>
-    dock.title.toLowerCase().includes(search.toLowerCase()),
-  );
   return (
     <div className="p-6 flex flex-col items-center">
       <AdminNavbar />
-      <p className="text-2xl mb-5 font-bold"> Docks page</p>
-      <p className="text-xl mb-5"> Browse and edit Dock offers</p>
-      <AdminSearchBar
-        value={search}
-        onChange={setSearch}
-        onClear={() => setSearch("")}
-        placeholder="Search docks..."
-      />
+      <p className="text-2xl mb-5 font-bold">Review Docking Spots</p>
+      <p className="text-xl mb-5">Search for a docking spot</p>
+
+      <div className="flex items-center gap-4 mb-4 w-full max-w-xl">
+        <AdminSearchBar
+          value={search}
+          onChange={setSearch}
+          onClear={() => setSearch("")}
+          placeholder="Search docking spots..."
+        />
+      </div>
+
       <DockList
-        items={filtered}
-        onView={(dock) => redirect(`/admin/dock/${dock.id}`)}
-        onDelete={(dock) => setShowModal(true)}
-        onAddNew={() => alert("Add new dock")}
+        items={dockingSpots}
+        onView={(dock) => redirect(`/admin/dock/${dock.dock_id}`)}
+        onDelete={(dock) => {
+          setSelectedDock(dock);
+          setShowModal(true);
+        }}
       />
+
+      {!isLoading && !error && (
+        <Pagination
+          currentPage={page}
+          setPage={setPage}
+          hasNextPage={true}
+        />
+      )}
+
       <DeleteModal
         isOpen={showModal}
-        title="Are you sure you want to delete [Booking X]?"
+        title={`Are you sure you want to delete docking spot "${selectedDock?.dock_id}"?`}
         onCancel={() => setShowModal(false)}
-        onConfirm={() => {
-          setShowModal(false);
-        }}
+        onConfirm={handleDelete}
       />
     </div>
   );
 };
 
-export default AdminDockOffers;
+export default AdminDockingSpots;

@@ -1,39 +1,34 @@
 import React from "react";
-
-type Item = {
-  id: string;
-  title: string;
-  owner: string;
-  location: string;
-  imageUrl: string;
-};
+import { DockingSpotData } from "../../../types/docking-spot";
 
 type DockCardProps = {
-  item: Item;
-  onView: (item: Item) => void;
-  onDelete: (item: Item) => void;
+  item: DockingSpotData;
+  onView: (item: DockingSpotData) => void;
+  onDelete: (item: DockingSpotData) => void;
 };
 
-export const DockCard: React.FC<DockCardProps> = ({
-  item,
-  onView,
-  onDelete,
-}) => {
+const DockCard: React.FC<DockCardProps> = ({ item, onView, onDelete }) => {
   return (
     <div
-      key={item.id}
-      className="border p-4 rounded shadow-sm flex gap-4 items-center"
+      key={item.dock_id}
+      className="border p-4 rounded shadow-sm flex gap-4 items-center w-full"
     >
-      <img
-        src={item.imageUrl}
-        alt={item.title}
-        className="w-16 h-16 object-cover rounded"
-      />
       <div className="flex-1">
-        <p className="font-semibold">{item.title}</p>
-        <p className="text-sm text-gray-600">Location: {item.location}</p>
-        <p className="text-sm text-gray-600">Owner: {item.owner}</p>
+        <div className="flex flex-row gap-2">
+          <p>Dock name:</p>
+          <p className="font-semibold">{item.name}</p>
+        </div>
+
+        <div className="flex flex-row gap-2">
+          <p>Owner ID:</p>
+          <p className="font-semibold">{item.owner_id}</p>
+        </div>
+
+        <p className="text-sm text-gray-600">
+          Price: ${item.price_per_night} per night / ${item.price_per_person} per person
+        </p>
       </div>
+
       <div className="flex gap-2">
         <button
           onClick={() => onView(item)}
