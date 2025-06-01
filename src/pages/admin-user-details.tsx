@@ -18,11 +18,17 @@ export default function UserDetails(){
   return (
     <DetailsLayout title="User Details" onBack={() => navigate("/admin/users")}>
       <InputFields<UserData>
-        fields={["name", "surname", "email", "phone_number"]}
+        fields={[
+          { name: "user_id", readOnly: true },
+          { name: "name" },
+          { name: "surname" },
+          { name: "email", readOnly: true },
+          { name: "phone_number" },
+        ]}
         formData={formData}
-        isEditing={isEditing}
         onChange={handleChange}
       />
+
 
       <EditActions
         isEditing={isEditing}

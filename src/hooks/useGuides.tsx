@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { GuideData } from '../types/guide'
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -8,7 +8,7 @@ export function useGuides() {
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchGuides = async () => {
+  const fetchGuides = useCallback(async () => {
     try {
       const res = await fetch(`${API_URL}/guides/list`);
       if (!res.ok) throw new Error("Failed to fetch guides");
@@ -19,11 +19,11 @@ export function useGuides() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchGuides();
-  }, []);
+  }, [fetchGuides]);
 
   return { guides, isLoading, error, refetch: fetchGuides };
 }
