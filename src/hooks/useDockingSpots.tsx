@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { DockingSpotData } from '../types/docking-spot';
+import { DockingSpotData, DockingSpotListData } from '../types/docking-spot';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function useDockingSpots() {
-  const [dockingSpots, setDockingSpots] = useState<DockingSpotData[]>([]);
+  const [dockingSpots, setDockingSpots] = useState<DockingSpotListData[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -17,15 +17,33 @@ export default function useDockingSpots() {
     try {
       const res = await fetch(`${API_URL}/docking-spots/list?offset=${page * 10}&name=${search}`);
       if (!res.ok) throw new Error("Failed to fetch docking spots");
-      const data: DockingSpotData[] = await res.json();
-      setDockingSpots(data);
+      const rawDocks: DockingSpotData[] = await res.json();
+
+      const uniqueOwnerIds = [...new Set(rawDocks.map((d) => d.owner_id))];
+
+      const ownerMap: Record<string, string> = {};
+      await Promise.all(
+        uniqueOwnerIds.map(async (id) => {
+          const res = await fetch(`${API_URL}/users/${id}`);
+          if (res.ok) {
+            const data = await res.json();
+            ownerMap[id] = `${data.user.name} ${data.user.surname}`;
+          }
+        })
+      );
+
+      const enriched: DockingSpotListData[] = rawDocks.map((dock) => ({
+        ...dock,
+        owner_name: ownerMap[dock.owner_id] || "Unknown Owner",
+      }));
+
+      setDockingSpots(enriched);
     } catch (err: any) {
       setError(err.message || "Unexpected error");
     } finally {
       setLoading(false);
     }
   }, [page, search]);
-
   useEffect(() => {
     fetchDockingSpots();
   }, [fetchDockingSpots]);

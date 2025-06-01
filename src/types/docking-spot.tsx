@@ -10,3 +10,8 @@ export type DockingSpotData = {
     services: string;
     services_pricing: number;
 };
+
+
+export type DockingSpotListData = DockingSpotData & {
+  owner_name: string;
+};

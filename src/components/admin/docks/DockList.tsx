@@ -1,11 +1,11 @@
 import React from "react";
 import DockCard from "./DockCard.tsx";
-import { DockingSpotData } from "../../../types/docking-spot.tsx";
+import { DockingSpotListData } from "../../../types/docking-spot.tsx";
 
 type DockListProps = {
-  items: DockingSpotData[];
-  onView: (item: DockingSpotData) => void;
-  onDelete: (item: DockingSpotData) => void;
+  items: DockingSpotListData[];
+  onView: (item: DockingSpotListData) => void;
+  onDelete: (item: DockingSpotListData) => void;
 };
 
 const DockList: React.FC<DockListProps> = ({ items, onView, onDelete }) => {

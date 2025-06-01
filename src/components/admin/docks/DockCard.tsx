@@ -1,10 +1,10 @@
 import React from "react";
-import { DockingSpotData } from "../../../types/docking-spot";
+import { DockingSpotListData } from "../../../types/docking-spot";
 
 type DockCardProps = {
-  item: DockingSpotData;
-  onView: (item: DockingSpotData) => void;
-  onDelete: (item: DockingSpotData) => void;
+  item: DockingSpotListData;
+  onView: (item: DockingSpotListData) => void;
+  onDelete: (item: DockingSpotListData) => void;
 };
 
 const DockCard: React.FC<DockCardProps> = ({ item, onView, onDelete }) => {
@@ -20,8 +20,8 @@ const DockCard: React.FC<DockCardProps> = ({ item, onView, onDelete }) => {
         </div>
 
         <div className="flex flex-row gap-2">
-          <p>Owner ID:</p>
-          <p className="font-semibold">{item.owner_id}</p>
+          <p>Owner Name:</p>
+          <p className="font-semibold">{item.owner_name}</p>
         </div>
 
         <p className="text-sm text-gray-600">
