@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { DockingSpotData, DockingSpotEnriched } from "../types/docking-spot";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -11,7 +11,7 @@ export default function useDockingSpots() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchDockingSpots = async () => {
+  const fetchDockingSpots = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -48,14 +48,14 @@ export default function useDockingSpots() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, search]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       fetchDockingSpots();
     }, 300);
     return () => clearTimeout(timeout);
-  }, [page, search]);
+  }, [fetchDockingSpots]);
 
   const deleteDockingSpot = async (dockId: string) => {
     try {

@@ -16,7 +16,7 @@ export function useBookings() {
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/bookings/list?page=${page}${search != "" ? `&sailor_id=${encodeURIComponent(search)}` : ""}`);
+      const res = await fetch(`${API_URL}/bookings/list?page=${page}${search !== "" ? `&sailor_id=${encodeURIComponent(search)}` : ""}`);
       if (!res.ok) throw new Error("Failed to fetch bookings");
       const data = await res.json();
       const rawBookings: BookingData[] = data.bookings || [];

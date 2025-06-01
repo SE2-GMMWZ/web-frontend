@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { GuideData } from "../types/guide";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -12,7 +12,7 @@ export function useGuides() {
   const [page, setPage] = useState(1);
   const [onlyUnapproved, setOnlyUnapproved] = useState(false);
 
-  const fetchGuides = async () => {
+  const fetchGuides = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -30,14 +30,14 @@ export function useGuides() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, search, onlyUnapproved]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       fetchGuides();
     }, 300);
     return () => clearTimeout(timeout);
-  }, [page, search, onlyUnapproved]);
+  }, [fetchGuides]);
 
   const deleteGuide = async (id: string) => {
     try {

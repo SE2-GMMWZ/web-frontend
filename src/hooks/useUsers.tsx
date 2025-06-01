@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { UserData } from "../types/user";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -11,7 +11,7 @@ export function useUsers() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -27,14 +27,14 @@ export function useUsers() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [page, search]);
 
   useEffect(() => {
     const delay = setTimeout(() => {
       fetchUsers();
     }, 300);
     return () => clearTimeout(delay);
-  }, [page, search]);
+  }, [fetchUsers]);
 
   const deleteUser = async (userId: string) => {
     try {
