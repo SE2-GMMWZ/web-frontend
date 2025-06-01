@@ -37,14 +37,12 @@ export const AdminDockingSpots: React.FC = () => {
       <p className="text-2xl mb-5 font-bold">Review Docking Spots</p>
       <p className="text-xl mb-5">Search for a docking spot</p>
 
-      <div className="flex items-center gap-4 mb-4 w-full max-w-xl">
-        <AdminSearchBar
-          value={search}
-          onChange={setSearch}
-          onClear={() => setSearch("")}
-          placeholder="Search docking spots..."
-        />
-      </div>
+      <AdminSearchBar
+        value={search}
+        onChange={setSearch}
+        onClear={() => setSearch("")}
+        placeholder="Search bookings..."
+      />
 
       <DockList
         items={dockingSpots}
