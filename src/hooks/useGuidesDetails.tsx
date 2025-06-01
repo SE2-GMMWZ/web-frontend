@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { GuideData } from "../types/guide";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -8,7 +8,7 @@ export function useGuidesDetails(id: string) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
 
-  const fetchGuide = async () => {
+  const fetchGuide = useCallback(async () => {
     try {
       setIsLoading(true);
       const res = await fetch(`${API_URL}/guides/${id}`);
@@ -20,11 +20,11 @@ export function useGuidesDetails(id: string) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchGuide();
-  }, [id]);
+  }, [fetchGuide]);
 
   return { guide, isLoading, error, refetch: fetchGuide };
 }

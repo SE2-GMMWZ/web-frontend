@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { BookingListData, BookingData } from '../types/booking'
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -10,7 +10,7 @@ export function useBookings() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -61,7 +61,8 @@ export function useBookings() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [page]);
+
 
   useEffect(() => {
     fetchBookings();
