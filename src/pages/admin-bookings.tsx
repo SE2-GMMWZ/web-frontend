@@ -11,15 +11,10 @@ import Pagination from "../components/Pagination.tsx";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const AdminBookings: React.FC = () => {
-  const { bookings, isLoading, error, page, refetch, setPage} = useBookings();
-  const [search, setSearch] = useState("");
+  const { bookings, isLoading, error, page, search, setSearch, refetch, setPage} = useBookings();
   const [selectedBooking, setSelectedBooking] = useState<BookingListData | null>(null);
   const redirect = useNavigate();
   const [showModal, setShowModal] = useState(false);
-
-  const filtered = bookings.filter((booking) =>
-    booking.booking_id.toLowerCase().includes(search.toLowerCase())
-  );
 
   const handleDelete = async () => {
     if (!selectedBooking) return;
@@ -48,7 +43,7 @@ export const AdminBookings: React.FC = () => {
       />
       
       <BookingList
-        items={filtered}
+        items={bookings}
         onView={(booking) => redirect(`/admin/booking/${booking.booking_id}`)}
         onDelete={(booking) => {
           setSelectedBooking(booking);

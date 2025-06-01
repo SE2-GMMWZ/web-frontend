@@ -7,6 +7,7 @@ export function useBookings() {
   const [bookings, setBookings] = useState<BookingListData[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
   const fetchBookings = async () => {
@@ -14,7 +15,7 @@ export function useBookings() {
     setError(null);
 
     try {
-      const res = await fetch(`${API_URL}/bookings/list?offset=${page * 10}`);
+      const res = await fetch(`${API_URL}/bookings/list?offset=${page * 10}&search=${search}`);
       if (!res.ok) throw new Error("Failed to fetch bookings");
       const rawBookings: BookingData[] = await res.json();
 
@@ -64,7 +65,7 @@ export function useBookings() {
 
   useEffect(() => {
     fetchBookings();
-  }, [page]);
+  }, [page, search]);
 
-  return { bookings, isLoading, error, page, refetch: fetchBookings, setPage};
+  return { bookings, isLoading, error, page, search, setSearch, refetch: fetchBookings, setPage};
 }
