@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { BookingListData, BookingData } from '../types/booking'
+import { BookingEnriched, BookingData } from '../types/booking'
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export function useBookings() {
-  const [bookings, setBookings] = useState<BookingListData[]>([]);
+  const [bookings, setBookings] = useState<BookingEnriched[]>([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -44,15 +44,10 @@ export function useBookings() {
         })
       );
 
-      const enrichedBookings: BookingListData[] = rawBookings.map(b => ({
-        booking_id: b.booking_id,
+      const enrichedBookings: BookingEnriched[] = rawBookings.map(b => ({
+        ...b,
         dock_name: dockMap[b.dock_id] || "Unknown Dock",
-        end_date: b.end_date,
-        payment_method: b.payment_method,
-        payment_status: b.payment_status,
-        people: b.people,
         sailor_name: sailorMap[b.sailor_id] || "Unknown Sailor",
-        start_date: b.start_date,
       }));
 
       setBookings(enrichedBookings);

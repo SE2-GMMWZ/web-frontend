@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useBookingDetails from "../hooks/useBookingDetails.tsx";
-import { BookingData } from "../types/booking.tsx";
+import { BookingEnriched } from "../types/booking.tsx";
 import DeleteModal from "../components/admin/DeleteModal.tsx";
 import DetailsLayout from "../components/admin/DetailsLayout.tsx";
 import EditActions from "../components/admin/EditActions.tsx";
@@ -9,20 +9,23 @@ import InputFields from "../components/admin/InputFields.tsx";
 export default function BookingDetails() {
   const { bookingId } = useParams();
   const navigate = useNavigate();
-  const { isLoading, formData, isEditing, showModal, 
-  setShowModal, setIsEditing, handleChange, handleSave, handleDelete,
-  } = useBookingDetails(bookingId!);
+  const { isLoading, formData, isEditing, showModal, setShowModal, 
+    setIsEditing, handleChange, handleSave, handleDelete } = useBookingDetails(bookingId!);
 
   if (isLoading) return <p className="p-6">Loading booking...</p>;
   if (!formData) return <p className="p-6">Booking not found</p>;
 
   return (
     <DetailsLayout title="Booking Details" onBack={() => navigate("/admin/bookings")}>
-      <InputFields<BookingData>
+
+      <InputFields<BookingEnriched>
         fields={[
           { name: "booking_id", readOnly: true },
           { name: "sailor_id", readOnly: true },
+          { name: "sailor_name", readOnly: true },
           { name: "dock_id", readOnly: true },
+          { name: "dock_name", readOnly: true },
+          { name: "people" },
           { name: "start_date" },
           { name: "end_date" },
           { name: "payment_method" },

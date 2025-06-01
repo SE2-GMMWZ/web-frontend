@@ -1,23 +1,15 @@
-export type BookingData = 
-{
-    booking_id: string;
-    dock_id: string;
-    end_date: string;
-    payment_method: string;
-    payment_status: string;
-    people: number;
-    sailor_id: string;
-    start_date: string;
-}
+export type BookingData = {
+  booking_id: string;
+  sailor_id: string;
+  dock_id: string;
+  start_date: string;
+  end_date: string;
+  payment_method: string;
+  payment_status: string;
+  people: number;
+};
 
-export type BookingListData = 
-{
-    booking_id: string;
-    dock_name: string;
-    end_date: string;
-    payment_method: string;
-    payment_status: string;
-    people: number;
-    sailor_name: string;
-    start_date: string;
-}
+export type BookingEnriched = BookingData & {
+  sailor_name: string;
+  dock_name: string;
+};
