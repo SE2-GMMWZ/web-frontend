@@ -1,5 +1,5 @@
-import React from "react";
 import LoginButton from "../components/LoginButton.tsx";
+import RegisterButton from "../components/RegisterButton.tsx";
 
 export default function Welcome() {
   return (
@@ -10,6 +10,7 @@ export default function Welcome() {
         </p>
         <div className="pt-20 flex-row flex gap-4 text-4xl">
           <LoginButton/>
+          <RegisterButton/>
         </div>
       </div>
     </div>

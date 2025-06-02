@@ -6,6 +6,7 @@ import PublicRoute from "./components/PublicRoute.tsx";
 
 import Welcome from "./pages/welcome.tsx";
 import Login from "./pages/login.tsx";
+import Register from "./pages/register.tsx";
 import AdminPanel from "./pages/admin-panel.tsx";
 import AdminDockOffers from "./pages/lists/admin-dock-offers.tsx";
 import DockDetails from "./pages/details/admin-dock-details.tsx";
@@ -36,6 +37,14 @@ const App: React.FC = () => (
           element={
             <PublicRoute>
               <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register/"
+          element={
+            <PublicRoute>
+              <Register />
             </PublicRoute>
           }
         />
