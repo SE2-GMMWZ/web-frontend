@@ -4,8 +4,8 @@ import { AuthProvider } from "./providers/AuthProvider.tsx";
 import RequireAuth from "./components/RequireAuth.tsx";
 import PublicRoute from "./components/PublicRoute.tsx";
 
+import Welcome from "./pages/welcome.tsx";
 import Login from "./pages/login.tsx";
-import LoginPanel from "./pages/login-panel.tsx";
 import AdminPanel from "./pages/admin-panel.tsx";
 import AdminDockOffers from "./pages/lists/admin-dock-offers.tsx";
 import DockDetails from "./pages/details/admin-dock-details.tsx";
@@ -24,18 +24,18 @@ const App: React.FC = () => (
       <Routes>
         {/* Public (only when logged out) */}
         <Route
-          path="/login"
+          path="/"
           element={
             <PublicRoute>
-              <Login />
+              <Welcome />
             </PublicRoute>
           }
         />
         <Route
-          path="/login/:userType"
+          path="/login/"
           element={
             <PublicRoute>
-              <LoginPanel />
+              <Login />
             </PublicRoute>
           }
         />
