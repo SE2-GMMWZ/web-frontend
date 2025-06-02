@@ -10,7 +10,7 @@ export default function AdminGuides() {
   return (
     <AdminEntityListPage<GuideData>
       title="Guides"
-      searchPlaceholder="Search guides..."
+      searchPlaceholder="Search guides (by author id)..."
       items={guides}
       page={page}
       totalPages={totalPages}

@@ -20,7 +20,7 @@ export const AdminSearchBar: React.FC<AdminSearchBarProps> = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="border rounded px-4 py-2 w-full"
+        className="border rounded px-4 py-2 w-[350px]"
       />
       {value && (
         <button onClick={onClear} className="text-xl px-2">
