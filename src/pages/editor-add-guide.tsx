@@ -28,20 +28,20 @@ export default function AddGuideView() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            title,
-            content,
-            author_id: user?.id,
-            images: [],
-            is_approved: false,
-            publication_date: new Date().toISOString(),
-            location: "",
-            links: [],
+          title,
+          content,
+          author_id: user?.id,
+          images: [],
+          is_approved: false,
+          publication_date: new Date().toISOString(),
+          location: "",
+          links: [],
         }),
       });
 
       if (!res.ok) throw new Error("Failed to add guide");
 
-      navigate("/editor"); // Redirect to panel after success
+      navigate("/editor");
     } catch (err: any) {
       setError(err.message || "Something went wrong.");
     } finally {
@@ -50,42 +50,46 @@ export default function AddGuideView() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-white">
       <EditorNavbar />
-      <div className="p-8 max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Create a New Guide</h1>
+      <div className="flex-1 flex flex-col justify-center items-center px-4 py-12">
+        <div className="w-full max-w-2xl">
+          <h1 className="text-5xl md:text-4xl font-semibold mb-10 text-center">
+            Create a New Guide
+          </h1>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+          {error && <p className="text-red-500 mb-6 text-center">{error}</p>}
 
-        <label className="block mb-2 font-medium">Title</label>
-        <input
-          type="text"
-          className="w-full border px-4 py-2 rounded mb-4"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+          <label className="block text-xl mb-2">Title</label>
+          <input
+            type="text"
+            className="w-full border border-black px-6 py-3 rounded-xl text-lg mb-6 focus:outline-none focus:ring-2 focus:ring-black"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <label className="block mb-2 font-medium">Content</label>
-        <textarea
-          className="w-full border px-4 py-2 rounded h-48 mb-6"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+          <label className="block text-xl mb-2">Content</label>
+          <textarea
+            className="w-full border border-black px-6 py-3 rounded-xl text-lg h-48 mb-8 resize-none focus:outline-none focus:ring-2 focus:ring-black"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
 
-        <div className="flex gap-4">
-          <button
-            onClick={handleSubmit}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit Guide"}
-          </button>
-          <button
-            onClick={() => navigate("/editor")}
-            className="bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded"
-          >
-            Cancel
-          </button>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition disabled:opacity-50"
+            >
+              {isSubmitting ? "Submitting..." : "Submit Guide"}
+            </button>
+            <button
+              onClick={() => navigate("/editor")}
+              className="bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-xl"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>
