@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from "./providers/AuthProvider.tsx";
 import RequireAuth from "./components/RequireAuth.tsx";
 import PublicRoute from "./components/PublicRoute.tsx";
@@ -21,14 +15,12 @@ import AdminUsers from "./pages/lists/admin-users.tsx";
 import UserDetails from "./pages/details/admin-user-details.tsx";
 import AdminGuides from "./pages/lists/admin-guides.tsx";
 import GuideDetails from "./pages/details/admin-guide-details.tsx";
+import EditorPanel from "./pages/editor-panel.tsx";
 
 const App: React.FC = () => (
   <Router>
     <AuthProvider>
       <Routes>
-        {/* Redirect root */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
-
         {/* Public (only when logged out) */}
         <Route
           path="/login"
@@ -117,6 +109,14 @@ const App: React.FC = () => (
           element={
             <RequireAuth allowedRoles={["admin"]}>
               <GuideDetails />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editor"
+          element={
+            <RequireAuth allowedRoles={["admin", "editor"]}>
+              <EditorPanel />
             </RequireAuth>
           }
         />
