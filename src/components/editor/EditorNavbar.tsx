@@ -7,7 +7,7 @@ export default function EditorNavbar() {
     <nav className="flex items-center px-8 py-3 shadow bg-white">
 
       <div className="flex items-center gap-2">
-        <HomeIcon className="w-6 h-6" />
+        <HomeIcon onClick={() => navigate("/editor")} className="w-6 h-6 hover:cursor-pointer" />
       </div>
 
       <div className="flex-1 flex justify-center gap-6 text-sm text-gray-700">
