@@ -28,9 +28,14 @@ export default function AddGuideView() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
-          content,
-          author_id: user?.id,
+            title,
+            content,
+            author_id: user?.id,
+            images: [],
+            is_approved: false,
+            publication_date: new Date().toISOString(),
+            location: "",
+            links: [],
         }),
       });
 
