@@ -12,8 +12,6 @@ const EditorPanel: React.FC = () => {
             <EditorNavbar/>
             <div className="p-8">
                 <h2 className="text-xl font-semibold mb-1">Guides</h2>
-                <p className="text-sm text-gray-500 mb-6">date: this month</p>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {guides.map((guide) => (
                         <EditorPanelCard key={guide.guide_id} guide={guide} onView={() => {}} onDelete={() => deleteGuide(guide.guide_id)}/>    
