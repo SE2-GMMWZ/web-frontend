@@ -10,6 +10,7 @@ export default function useEditorGuides(editorId: string) {
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedGuide, setSelectedGuide] = useState<GuideData | null>(null);
 
   const fetchGuides = useCallback(async () => {
     setLoading(true);
@@ -44,7 +45,47 @@ export default function useEditorGuides(editorId: string) {
     }
   };
 
+  const updateGuide = async (updated: GuideData) => {
+    try {
+      const res = await fetch(`${API_URL}/guides/${updated.guide_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
+      if (!res.ok) throw new Error("Failed to update guide");
+      await fetchGuides();
+    } catch (err) {
+      alert("Failed to update guide");
+    }
+  };
+
+  const getGuideById = useCallback(async (id: string): Promise<GuideData | null> => {
+    try {
+      const res = await fetch(`${API_URL}/guides/${id}`);
+      if (!res.ok) throw new Error("Failed to fetch guide");
+      const guide = await res.json();
+      setSelectedGuide(guide);
+      return guide;
+    } catch (err) {
+      alert("Failed to fetch guide");
+      return null;
+    }
+  }, []);
+
   return {
-    guides, isLoading, error, page, search, totalPages,
-    deleteGuide, setSearch, setPage };
+    guides,
+    isLoading,
+    error,
+    page,
+    search,
+    totalPages,
+    deleteGuide,
+    updateGuide,
+    getGuideById,
+    selectedGuide,
+    setSearch,
+    setPage,
+    refetch: fetchGuides,
+  };
 }
+
