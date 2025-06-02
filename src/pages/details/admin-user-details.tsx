@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../components/EntityDetailsPage.tsx";
-import { UserData } from "../types/user";
-import useUsersDetails from "../hooks/useUsersDetails.tsx";
+import EntityDetailsPage from "../../components/EntityDetailsPage.tsx";
+import { UserData } from "../../types/user.tsx";
+import useUsersDetails from "../../hooks/useUsersDetails.tsx";
 
 export default function UserDetails() {
   const { userId } = useParams();

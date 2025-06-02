@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "../components/admin/AdminNavbar.tsx";
-import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import DeleteModal from "../components/admin/DeleteModal.tsx";
-import Pagination from "../components/Pagination.tsx";
-import useDockingSpots from "../hooks/useDockingSpots.tsx";
-import { DockingSpotEnriched } from "../types/docking-spot.tsx";
-import AdminCardList from "../components/admin/AdminCardList.tsx";
-import DockCard from "../components/admin/cards/DockCard.tsx";
-import PageSelector from "../components/PageSelector.tsx";
+import AdminNavbar from "../../components/admin/AdminNavbar.tsx";
+import AdminSearchBar from "../../components/admin/AdminSearchBar.tsx";
+import DeleteModal from "../../components/admin/DeleteModal.tsx";
+import Pagination from "../../components/Pagination.tsx";
+import useDockingSpots from "../../hooks/useDockingSpots.tsx";
+import { DockingSpotEnriched } from "../../types/docking-spot.tsx";
+import AdminCardList from "../../components/admin/AdminCardList.tsx";
+import DockCard from "../../components/admin/cards/DockCard.tsx";
+import PageSelector from "../../components/PageSelector.tsx";
 
 export default function AdminDockingSpots() {
   const { dockingSpots, isLoading, error, page, search, totalPages,

@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../components/EntityDetailsPage.tsx";
-import { BookingEnriched } from "../types/booking.ts";
-import useBookingDetails from "../hooks/useBookingDetails.tsx";
+import AdminEntityDetailsPage from "../../components/admin/EntityDetailsPage.tsx";
+import { BookingEnriched } from "../../types/booking.tsx";
+import useBookingDetails from "../../hooks/useBookingDetails.tsx";
 
 export default function BookingDetails() {
   const { bookingId } = useParams();
   return (
-    <EntityDetailsPage<BookingEnriched>
+    <AdminEntityDetailsPage<BookingEnriched>
       title="Booking Details"
       backPath="/admin/bookings"
       idParam={bookingId!}

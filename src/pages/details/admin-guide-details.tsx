@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../components/EntityDetailsPage.tsx";
-import { GuideEnriched } from "../types/guide";
-import useGuideDetails from "../hooks/useGuideDetails.tsx";
+import EntityDetailsPage from "../../components/EntityDetailsPage.tsx";
+import { GuideEnriched } from "../../types/guide.tsx";
+import useGuideDetails from "../../hooks/useGuideDetails.tsx";
 
 export default function GuideDetails() {
   const { guideId } = useParams();

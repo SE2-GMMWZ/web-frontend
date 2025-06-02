@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "../components/admin/AdminNavbar.tsx";
-import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import DeleteModal from "../components/admin/DeleteModal.tsx";
-import Pagination from "../components/Pagination.tsx";
-import { useGuides } from "../hooks/useGuides.tsx";
-import { GuideData } from "../types/guide";
-import AdminCardList from "../components/admin/AdminCardList.tsx";
-import { GuideCard } from "../components/admin/cards/GuideCard.tsx";
-import PageSelector from "../components/PageSelector.tsx";
+import AdminNavbar from "../../components/admin/AdminNavbar.tsx";
+import AdminSearchBar from "../../components/admin/AdminSearchBar.tsx";
+import DeleteModal from "../../components/admin/DeleteModal.tsx";
+import Pagination from "../../components/Pagination.tsx";
+import { useGuides } from "../../hooks/useGuides.tsx";
+import { GuideData } from "../../types/guide.tsx";
+import AdminCardList from "../../components/admin/AdminCardList.tsx";
+import { GuideCard } from "../../components/admin/cards/GuideCard.tsx";
+import PageSelector from "../../components/PageSelector.tsx";
 
 export default function AdminGuides() {
   const { guides, isLoading, error, page, search, totalPages,

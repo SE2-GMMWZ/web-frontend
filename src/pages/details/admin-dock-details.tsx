@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../components/EntityDetailsPage.tsx";
-import { DockingSpotEnriched } from "../types/docking-spot";
-import useDockingSpotDetails from "../hooks/useDockingSpotDetails.tsx";
+import EntityDetailsPage from "../../components/EntityDetailsPage.tsx";
+import { DockingSpotEnriched } from "../../types/docking-spot.tsx";
+import useDockingSpotDetails from "../../hooks/useDockingSpotDetails.tsx";
 
 export default function DockingSpotDetails() {
   const { dockId } = useParams();

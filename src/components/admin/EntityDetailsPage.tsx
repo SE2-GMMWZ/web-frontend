@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import DeleteModal from "../components/admin/DeleteModal.tsx";
-import DetailsLayout from "../components/admin/DetailsLayout.tsx";
-import EditActions from "../components/admin/EditActions.tsx";
-import InputFields from "../components/admin/InputFields.tsx";
+import DeleteModal from "./DeleteModal.tsx";
+import DetailsLayout from "./DetailsLayout.tsx";
+import EditActions from "./EditActions.tsx";
+import InputFields from "./InputFields.tsx";
 
 type Field<T> = {
   name: keyof T;
@@ -12,7 +12,7 @@ type Field<T> = {
   options?: string[];
 };
 
-type EntityDetailsPageProps<T> = {
+type AdminEntityDetailsPageProps<T> = {
   title: string;
   backPath: string;
   useDetailsHook: (id: string) => {
@@ -30,13 +30,8 @@ type EntityDetailsPageProps<T> = {
   fields: Field<T>[];
 };
 
-export default function EntityDetailsPage<T>({
-  title,
-  backPath,
-  useDetailsHook,
-  idParam,
-  fields,
-}: EntityDetailsPageProps<T>) {
+export default function AdminEntityDetailsPage<T>({ title, backPath, 
+  useDetailsHook, idParam, fields }: AdminEntityDetailsPageProps<T>) {
   const navigate = useNavigate();
   const hookData = useDetailsHook(idParam);
 

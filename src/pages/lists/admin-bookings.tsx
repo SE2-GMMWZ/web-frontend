@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "../components/admin/AdminNavbar.tsx";
-import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import DeleteModal from "../components/admin/DeleteModal.tsx";
-import { useBookings } from "../hooks/useBookings.tsx";
-import { BookingEnriched } from "../types/booking";
-import BookingCard from "../components/admin/cards/BookingCard.tsx";
-import AdminCardList from "../components/admin/AdminCardList.tsx";
-import Pagination from "../components/Pagination.tsx";
-import PageSelector from "../components/PageSelector.tsx";
+import AdminNavbar from "../../components/admin/AdminNavbar.tsx";
+import AdminSearchBar from "../../components/admin/AdminSearchBar.tsx";
+import DeleteModal from "../../components/admin/DeleteModal.tsx";
+import { useBookings } from "../../hooks/useBookings.tsx";
+import { BookingEnriched } from "../../types/booking.tsx";
+import BookingCard from "../../components/admin/cards/BookingCard.tsx";
+import AdminCardList from "../../components/admin/AdminCardList.tsx";
+import Pagination from "../../components/Pagination.tsx";
+import PageSelector from "../../components/PageSelector.tsx";
 
 export default function AdminBookings(){
   const { bookings, isLoading, error, page, search, totalPages, 

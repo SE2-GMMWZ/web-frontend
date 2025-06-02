@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "../components/admin/AdminNavbar.tsx";
-import AdminSearchBar from "../components/admin/AdminSearchBar.tsx";
-import DeleteModal from "../components/admin/DeleteModal.tsx";
-import { useUsers } from "../hooks/useUsers.tsx";
-import { UserData } from "../types/user.tsx";
-import Pagination from "../components/Pagination.tsx";
-import AdminCardList from "../components/admin/AdminCardList.tsx";
-import UserCard from "../components/admin/cards/UserCard.tsx";
-import PageSelector from "../components/PageSelector.tsx";
+import AdminNavbar from "../../components/admin/AdminNavbar.tsx";
+import AdminSearchBar from "../../components/admin/AdminSearchBar.tsx";
+import DeleteModal from "../../components/admin/DeleteModal.tsx";
+import { useUsers } from "../../hooks/useUsers.tsx";
+import { UserData } from "../../types/user.tsx";
+import Pagination from "../../components/Pagination.tsx";
+import AdminCardList from "../../components/admin/AdminCardList.tsx";
+import UserCard from "../../components/admin/cards/UserCard.tsx";
+import PageSelector from "../../components/PageSelector.tsx";
 
 export default function AdminUsers() {
   const { users, isLoading, error, page, search, totalPages, deleteUser, setSearch, setPage } = useUsers();
