@@ -10,7 +10,7 @@ export default function AdminDockingSpots() {
   return (
     <AdminEntityListPage<DockingSpotEnriched>
       title="Docking Spots"
-      searchPlaceholder="Search docking spots (by owner id)..."
+      searchPlaceholder="Search docking spots (by owner id) ..."
       items={dockingSpots}
       page={page}
       totalPages={totalPages}

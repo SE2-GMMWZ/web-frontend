@@ -10,7 +10,7 @@ export default function AdminBookings() {
   return (
     <AdminEntityListPage<BookingEnriched>
       title="Bookings"
-      searchPlaceholder="Search bookings (by sailor id)..."
+      searchPlaceholder="Search bookings (by sailor id) ..."
       items={bookings}
       page={page}
       totalPages={totalPages}

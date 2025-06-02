@@ -16,6 +16,7 @@ import UserDetails from "./pages/details/admin-user-details.tsx";
 import AdminGuides from "./pages/lists/admin-guides.tsx";
 import GuideDetails from "./pages/details/admin-guide-details.tsx";
 import EditorPanel from "./pages/editor-panel.tsx";
+import AddGuideView from "./pages/editor-add-guide.tsx";
 
 const App: React.FC = () => (
   <Router>
@@ -117,6 +118,14 @@ const App: React.FC = () => (
           element={
             <RequireAuth allowedRoles={["admin", "editor"]}>
               <EditorPanel />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editor/add-guide"
+          element={
+            <RequireAuth allowedRoles={["admin", "editor"]}>
+              <AddGuideView />
             </RequireAuth>
           }
         />
