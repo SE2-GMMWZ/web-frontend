@@ -42,6 +42,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         });
         if (res.ok) {
           const data = await res.json();
+          // TODO: remove this shit - there should be no user role (change to editor)
+          if (data.user.role === 'user') data.user.role = 'editor';
           setUser(data.user);
         } else {
           setUser(null);
@@ -71,6 +73,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         throw new Error(err.message || "Login failed");
       }
       const { user: u } = await res.json();
+      // TODO: remove this shit - there should be no user role (change to editor)
+      if (u.role === 'user') u.role = 'editor';
       setUser(u);
       // redirect based on role
       console.log(u.role);
