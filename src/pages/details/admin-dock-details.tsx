@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../../components/EntityDetailsPage.tsx";
+import EntityDetailsPage from "../../components/admin/EntityDetailsPage.tsx";
 import { DockingSpotEnriched } from "../../types/docking-spot.tsx";
 import useDockingSpotDetails from "../../hooks/useDockingSpotDetails.tsx";
 

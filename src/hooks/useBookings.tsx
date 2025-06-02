@@ -66,7 +66,7 @@ export function useBookings() {
     fetchBookings();
   }, [fetchBookings]);
 
-  const deleteGuide = async (id: string) => {
+  const deleteBooking = async (id: string) => {
     try {
       const res = await fetch(`${API_URL}/bookings/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete guide");
@@ -77,5 +77,5 @@ export function useBookings() {
   };
 
   return { bookings, isLoading, error, page, search, totalPages,
-     deleteGuide, setSearch, fetchBookings, setPage};
+     deleteBooking, setSearch, fetchBookings, setPage};
 }

@@ -14,14 +14,14 @@ import Login from "./pages/login.tsx";
 import LoginPanel from "./pages/login-panel.tsx";
 import Home from "./pages/home.tsx";
 import AdminPanel from "./pages/admin-panel.tsx";
-import AdminDockOffers from "./pages/admin-dock-offers.tsx";
-import DockDetails from "./pages/admin-dock-details.tsx";
-import AdminBookings from "./pages/admin-bookings.tsx";
-import BookingDetails from "./pages/admin-booking-details.tsx";
-import AdminUsers from "./pages/admin-users.tsx";
-import UserDetails from "./pages/admin-user-details.tsx";
-import AdminGuides from "./pages/admin-guides.tsx";
-import GuideDetails from "./pages/admin-guide-details.tsx";
+import AdminDockOffers from "./pages/lists/admin-dock-offers.tsx";
+import DockDetails from "./pages/details/admin-dock-details.tsx";
+import AdminBookings from "./pages/lists/admin-bookings.tsx";
+import BookingDetails from "./pages/details/admin-booking-details.tsx";
+import AdminUsers from "./pages/lists/admin-users.tsx";
+import UserDetails from "./pages/details/admin-user-details.tsx";
+import AdminGuides from "./pages/lists/admin-guides.tsx";
+import GuideDetails from "./pages/details/admin-guide-details.tsx";
 
 const App: React.FC = () => (
   <Router>

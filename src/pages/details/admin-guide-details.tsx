@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import EntityDetailsPage from "../../components/EntityDetailsPage.tsx";
+import EntityDetailsPage from "../../components/admin/EntityDetailsPage.tsx";
 import { GuideEnriched } from "../../types/guide.tsx";
 import useGuideDetails from "../../hooks/useGuideDetails.tsx";
 
