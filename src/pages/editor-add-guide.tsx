@@ -8,7 +8,6 @@ import { useAuth } from "../providers/AuthProvider.tsx";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-// Fix Leaflet's default icon issues
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
@@ -87,12 +86,11 @@ export default function AddGuideView() {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col bg-white">
       <EditorNavbar />
       <div className="p-8 max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Create a Mega Super Cool Guide 🚀</h1>
-
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+          {error && <p className="text-red-500 mb-6 text-center">{error}</p>}
 
         <label className="block mb-2 font-medium">Title</label>
         <input type="text" className="w-full border px-4 py-2 rounded mb-4" value={title} onChange={e => setTitle(e.target.value)} />
@@ -141,21 +139,21 @@ export default function AddGuideView() {
             <LocationPicker onPick={(lat, lng) => { setLat(lat); setLng(lng); }} />
           </MapContainer>
         </div>
-
-        <div className="flex gap-4">
-          <button
-            onClick={handleSubmit}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit Guide"}
-          </button>
-          <button
-            onClick={() => navigate("/editor")}
-            className="bg-gray-200 hover:bg-gray-300 px-6 py-2 rounded"
-          >
-            Cancel
-          </button>
+          <div className="flex gap-4 justify-center">
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 transition disabled:opacity-50"
+            >
+              {isSubmitting ? "Submitting..." : "Submit Guide"}
+            </button>
+            <button
+              onClick={() => navigate("/editor")}
+              className="bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-xl"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>
