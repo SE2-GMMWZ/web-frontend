@@ -38,14 +38,24 @@ export default function useGuideDetails(id: string) {
 
   useEffect(() => { fetchGuide(); }, [fetchGuide]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
     if (!formData) return;
     const { name, value } = e.target;
     const isCheckbox = (e.target as HTMLInputElement).type === "checkbox";
-    const parsed =
-      isCheckbox ? (e.target as HTMLInputElement).checked :
-      name === "publication_date" ? new Date(value).toISOString() :
-      value;
+
+    let parsed: any;
+
+    if (isCheckbox) {
+      parsed = (e.target as HTMLInputElement).checked;
+    } else if (name === "publication_date") {
+      parsed = new Date(value).toISOString();
+    } else if (name === "is_approved") {
+      parsed = value === "Yes";
+    } else {
+      parsed = value;
+    }
 
     setFormData({ ...formData, [name]: parsed });
   };

@@ -19,13 +19,13 @@ export default function GuideDetails() {
 
       <InputFields<GuideEnriched>
         fields={[
-          { name: "guide_id", readOnly: true },
-          { name: "title" },
-          { name: "author_id", readOnly: true },
-          { name: "author_name", readOnly: true },
-          { name: "publication_date", readOnly: true },
-          { name: "content", multiline: true },
-          { name: "is_approved" }
+          { name: "guide_id", readOnly: true, leftAlign: false },
+          { name: "title", readOnly: !isEditing, leftAlign: true },
+          { name: "author_id", readOnly: true, leftAlign: false },
+          { name: "author_name", readOnly: true, leftAlign: false },
+          { name: "publication_date", readOnly: true, leftAlign: false },
+          { name: "content", multiline: true, readOnly: !isEditing, leftAlign: true },
+          { name: "is_approved", options: ["Yes", "No"], readOnly: !isEditing, leftAlign: true },
         ]}
         formData={formData}
         onChange={handleChange}

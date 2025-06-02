@@ -20,16 +20,16 @@ export default function BookingDetails() {
 
       <InputFields<BookingEnriched>
         fields={[
-          { name: "booking_id", readOnly: true },
-          { name: "sailor_id", readOnly: true },
-          { name: "sailor_name", readOnly: true },
-          { name: "dock_id", readOnly: true },
-          { name: "dock_name", readOnly: true },
-          { name: "people" },
-          { name: "start_date" },
-          { name: "end_date" },
-          { name: "payment_method" },
-          { name: "payment_status" }
+          { name: "booking_id", readOnly: true, leftAlign: false },
+          { name: "sailor_id", readOnly: true, leftAlign: false },
+          { name: "sailor_name", readOnly: true, leftAlign: false },
+          { name: "dock_id", readOnly: true, leftAlign: false },
+          { name: "dock_name", readOnly: true, leftAlign: false },
+          { name: "people", readOnly: !isEditing, leftAlign: true },
+          { name: "start_date", readOnly: !isEditing, leftAlign: true },
+          { name: "end_date", readOnly: !isEditing, leftAlign: true },
+          { name: "payment_method", readOnly: !isEditing, leftAlign: true },
+          { name: "payment_status", readOnly: !isEditing, leftAlign: true },
         ]}
         formData={formData}
         onChange={handleChange}

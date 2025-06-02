@@ -19,11 +19,11 @@ export default function UserDetails(){
     <DetailsLayout title="User Details" onBack={() => navigate("/admin/users")}>
       <InputFields<UserData>
         fields={[
-          { name: "user_id", readOnly: true },
-          { name: "name" },
-          { name: "surname" },
-          { name: "email", readOnly: true },
-          { name: "phone_number" },
+          { name: "user_id", readOnly: true, leftAlign: false },
+          { name: "name", readOnly: !isEditing, leftAlign: true },
+          { name: "surname", readOnly: !isEditing, leftAlign: true },
+          { name: "email", readOnly: true , leftAlign: false },
+          { name: "phone_number", readOnly: !isEditing, leftAlign: true },
         ]}
         formData={formData}
         onChange={handleChange}

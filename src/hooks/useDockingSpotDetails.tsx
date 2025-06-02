@@ -43,7 +43,7 @@ export default function useDockingSpotDetails(id: string) {
     fetchDock();
   }, [fetchDock]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     if (!formData) return;
 
     const { name, value } = e.target;

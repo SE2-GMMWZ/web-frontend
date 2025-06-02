@@ -21,16 +21,16 @@ export default function DockingSpotDetails() {
 
       <InputFields<DockingSpotEnriched>
         fields={[
-          { name: "dock_id", readOnly: true },
-          { name: "name" },
-          { name: "owner_id", readOnly: true },
-          { name: "owner_name", readOnly: true },     
-          { name: "description" },
-          { name: "availability" },
-          { name: "price_per_night" },
-          { name: "price_per_person" },
-          { name: "services" },
-          { name: "services_pricing" },
+          { name: "dock_id", readOnly: true, leftAlign: false },
+          { name: "name", readOnly: !isEditing, leftAlign: true },
+          { name: "owner_id", readOnly: true, leftAlign: false },
+          { name: "owner_name", readOnly: true, leftAlign: false },     
+          { name: "description", multiline: true, readOnly: !isEditing, leftAlign: true },
+          { name: "availability", readOnly: !isEditing, leftAlign: true },
+          { name: "price_per_night", readOnly: !isEditing, leftAlign: true },
+          { name: "price_per_person", readOnly: !isEditing, leftAlign: true },
+          { name: "services", readOnly: !isEditing, leftAlign: true },
+          { name: "services_pricing", readOnly: !isEditing, leftAlign: true },
         ]}
         formData={formData}
         onChange={handleChange}

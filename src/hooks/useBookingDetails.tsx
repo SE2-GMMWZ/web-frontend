@@ -47,7 +47,7 @@ export default function useBookingDetails(id: string) {
 
   useEffect(() => { fetchBooking(); }, [fetchBooking]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
   if (!formData) return;
   const { name, value } = e.target;
   const parsed =
