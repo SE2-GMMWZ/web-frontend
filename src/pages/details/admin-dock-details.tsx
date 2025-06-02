@@ -17,7 +17,7 @@ export default function DockingSpotDetails() {
         { name: "name", readOnly: false, leftAlign: true },
         { name: "owner_id", readOnly: true, leftAlign: false },
         { name: "owner_name", readOnly: true, leftAlign: false },
-        { name: "description", multiline: false, readOnly: true, leftAlign: true },
+        { name: "description", multiline: false, readOnly: false, leftAlign: true },
         { name: "availability", readOnly: false, leftAlign: true },
         { name: "price_per_night", readOnly: false, leftAlign: true },
         { name: "price_per_person", readOnly: false, leftAlign: true },
