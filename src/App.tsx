@@ -12,7 +12,6 @@ import PublicRoute from "./components/PublicRoute.tsx";
 
 import Login from "./pages/login.tsx";
 import LoginPanel from "./pages/login-panel.tsx";
-import Home from "./pages/home.tsx";
 import AdminPanel from "./pages/admin-panel.tsx";
 import AdminDockOffers from "./pages/lists/admin-dock-offers.tsx";
 import DockDetails from "./pages/details/admin-dock-details.tsx";
@@ -44,14 +43,6 @@ const App: React.FC = () => (
           element={
             <PublicRoute>
               <LoginPanel />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            <PublicRoute>
-              <Home />
             </PublicRoute>
           }
         />
